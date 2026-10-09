@@ -1,0 +1,177 @@
+/* ===== Design tokens ===== */
+:root {
+    --bg: #efe6ff;
+    --ink: #1b1340;
+    --pink: #ff4fa3;
+    --lime: #c6f432;
+    --sun: #ffb627;
+    --sky: #4cc9f0;
+    --card: #fff;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px)
+}
+
+@media (prefers-color-scheme:dark) {
+    :root:not([data-theme="light"]) {
+        --bg: #1b1340;
+        --ink: #f6f0ff;
+        --card: #2b2160
+    }
+}
+
+:root[data-theme="dark"] {
+    --bg: #1b1340;
+    --ink: #f6f0ff;
+    --card: #2b2160
+}
+
+/* ===== Box-sizing reset ===== */
+* {
+    box-sizing: border-box
+}
+
+html {
+    scroll-padding-top: env(safe-area-inset-top, 0px);
+    scroll-behavior: smooth
+}
+
+/* ===== Body ===== */
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    cursor: none
+}
+
+@media (hover:none) {
+    body {
+        cursor: auto
+    }
+
+    .cur,
+    .dot {
+        display: none
+    }
+}
+
+a,
+button {
+    cursor: none;
+    font: inherit;
+    color: inherit
+}
+
+/* ===== Custom cursor ===== */
+.cur {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 44px;
+    height: 44px;
+    margin: -22px 0 0 -22px;
+    border-radius: 50%;
+    background: var(--pink);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 99;
+    transition: width .2s, height .2s, margin .2s, background .2s
+}
+
+.cur.big {
+    width: 90px;
+    height: 90px;
+    margin: -45px 0 0 -45px;
+    background: var(--lime)
+}
+
+.dot {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    margin: -4px;
+    border-radius: 50%;
+    background: var(--ink);
+    pointer-events: none;
+    z-index: 100
+}
+
+/* ===== Pop / confetti particles ===== */
+.pop {
+    position: fixed;
+    pointer-events: none;
+    z-index: 98;
+    font-size: 22px;
+    animation: pop .8s ease-out forwards
+}
+
+@keyframes pop {
+    to {
+        transform: translate(var(--x), var(--y)) rotate(var(--r));
+        opacity: 0
+    }
+}
+
+/* ===== Scroll reveal ===== */
+.rv {
+    opacity: 0;
+    transform: translateY(60px) scale(.94);
+    transition: opacity .6s, transform .6s cubic-bezier(.2, 1.4, .4, 1)
+}
+
+.rv.in {
+    opacity: 1;
+    transform: none
+}
+
+@media (prefers-reduced-motion:reduce) {
+    * {
+        animation: none !important;
+        transition: none !important
+    }
+
+    .rv {
+        opacity: 1;
+        transform: none
+    }
+}
+
+/* ===== Focus ring ===== */
+:focus-visible {
+    outline: 4px solid var(--sun);
+    outline-offset: 3px
+}
+
+/* smooth theme change + cursor fix for dark mode */
+body {
+    transition: background .4s, color .4s
+}
+
+[data-theme="dark"] .cur {
+    mix-blend-mode: normal;
+    opacity: .75
+}
+
+/* snake cursor */
+#snake {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 99;
+    display: none
+}
+
+body.snake #snake {
+    display: block
+}
+
+body.snake .cur,
+body.snake .dot {
+    display: none
+}

@@ -1,0 +1,128 @@
+/* ===== Navigation ===== */
+nav {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 22px;
+    z-index: 50
+}
+
+nav .brand-tag {
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform .15s ease, opacity .15s ease;
+}
+
+nav .brand-tag:hover {
+    transform: translateY(-2px) scale(1.03);
+}
+
+nav .brand-tag:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+nav b {
+    font-size: 22px;
+    background: var(--ink);
+    color: var(--bg);
+    padding: 4px 12px;
+    border-radius: 99px;
+    display: inline-block;
+}
+
+/* ---------- Icon buttons ---------- */
+.nav-btns {
+    display: flex;
+    gap: 10px
+}
+
+.icon-btn {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    background: var(--sun);
+    color: #1b1340;
+    box-shadow: 3px 3px 0 var(--ink);
+    transition: transform .15s, box-shadow .15s, background .2s
+}
+
+.icon-btn#theme {
+    background: var(--sky)
+}
+
+.icon-btn:hover {
+    transform: translateY(-3px) rotate(-6deg);
+    box-shadow: 5px 6px 0 var(--ink)
+}
+
+.icon-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--ink)
+}
+
+.icon-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+/* speaker: waves when on, slash when muted */
+.sound .i-off {
+    display: none
+}
+
+.sound[aria-pressed="false"] .i-on {
+    display: none
+}
+
+.sound[aria-pressed="false"] .i-off {
+    display: block
+}
+
+.sound[aria-pressed="false"] {
+    background: #d9d4e8
+}
+
+/* theme: moon in light mode, sun in dark mode */
+.i-sun {
+    display: none
+}
+
+[data-theme="dark"] .i-moon {
+    display: none
+}
+
+[data-theme="dark"] .i-sun {
+    display: block
+}
+
+/* cursor mode button */
+.icon-btn#curBtn {
+    background: var(--pink)
+}
+
+.icon-btn#curBtn[aria-pressed="true"] {
+    background: #0d0b2b;
+    color: #39ff88;
+    border-color: #39ff88;
+    box-shadow: 0 0 12px #39ff88, 3px 3px 0 var(--ink)
+}
+
+@media (hover:none) {
+    #curBtn {
+        display: none
+    }
+}

@@ -1,0 +1,313 @@
+/* ===== Shared section wrapper ===== */
+section {
+    padding: 110px 6vw 60px;
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto
+}
+
+/* ===== Hero layout ===== */
+.hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative
+}
+
+.hero>*:not(.me) {
+    position: relative;
+    z-index: 2
+}
+
+/* ===== Heading ===== */
+h1 {
+    font-size: clamp(52px, 12vw, 150px);
+    line-height: .92;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -.04em
+}
+
+h1 span {
+    display: inline-block;
+    animation: hop .7s cubic-bezier(.3, 1.8, .5, 1) both;
+    animation-delay: calc(var(--i)*55ms)
+}
+
+h1 span:hover {
+    color: var(--pink);
+    transform: translateY(-14px) rotate(-8deg);
+    transition: .15s
+}
+
+@keyframes hop {
+    from {
+        transform: translateY(120%) rotate(18deg);
+        opacity: 0
+    }
+}
+
+/* keep each word together */
+h1 .word {
+    display: inline-block;
+    white-space: nowrap;
+    animation: none
+}
+
+h1 .word:hover {
+    color: inherit;
+    transform: none
+}
+
+/* ===== Role pill ===== */
+.role {
+    font-size: clamp(22px, 4vw, 44px);
+    margin: 26px 0 0;
+    font-weight: 800
+}
+
+.role em {
+    font-style: normal;
+    background: var(--lime);
+    color: #1b1340;
+    padding: 0 12px;
+    border-radius: 14px;
+    display: inline-block;
+    transition: transform .2s
+}
+
+.role em.flip {
+    transform: rotateX(90deg)
+}
+
+/* ===== Lead copy ===== */
+.lead {
+    max-width: 520px;
+    font-size: 19px;
+    line-height: 1.5;
+    margin: 20px 0 28px
+}
+
+/* ===== CTA button ===== */
+.btn {
+    display: inline-block;
+    border: 3px solid var(--ink);
+    background: var(--pink);
+    color: #1b1340;
+    font-weight: 800;
+    padding: 14px 26px;
+    border-radius: 99px;
+    text-decoration: none;
+    box-shadow: 5px 5px 0 var(--ink);
+    transition: transform .12s, box-shadow .12s
+}
+
+.btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--ink)
+}
+
+.btn:active {
+    transform: translate(4px, 4px);
+    box-shadow: 1px 1px 0 var(--ink)
+}
+
+/* ===== Marquee strip ===== */
+.marq {
+    background: var(--ink);
+    color: var(--bg);
+    padding: 16px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transform: rotate(-2deg);
+    margin: 30px -3vw;
+    font-size: 32px;
+    font-weight: 800;
+    position: relative;
+    z-index: 3
+}
+
+.marq div {
+    display: inline-block;
+    will-change: transform
+}
+
+/* ===== Section headings ===== */
+h2 {
+    font-size: clamp(36px, 7vw, 80px);
+    margin: 0 0 34px;
+    letter-spacing: -.03em
+}
+
+/* ===== Portrait (.me) ===== */
+.me {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+    width: clamp(260px, 36vw, 500px);
+    margin: 0;
+    z-index: 1;
+    pointer-events: none;
+    rotate: 3deg;
+    animation: tilt 6s ease-in-out infinite
+}
+
+@keyframes tilt {
+    50% {
+        rotate: -2deg
+    }
+}
+
+.me-frame {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    isolation: isolate;
+    border: 4px solid var(--ink);
+    box-shadow: 9px 9px 0 var(--ink);
+    background: linear-gradient(160deg, #d6f1ff, #e6dcff);
+    border-radius: 46% 54% 40% 60%/55% 45% 55% 45%;
+    animation: morph 9s ease-in-out infinite alternate
+}
+
+@keyframes morph {
+    to {
+        border-radius: 58% 42% 52% 48%/42% 58% 42% 58%
+    }
+}
+
+.me-frame img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 90% 100%;
+    mix-blend-mode: multiply;
+    filter: saturate(1.05)
+}
+
+/* ===== Decorative sparkles ===== */
+.sp {
+    position: absolute;
+    font-size: 36px;
+    line-height: 1;
+    -webkit-text-stroke: 2px var(--ink);
+    animation: twinkle 2.4s ease-in-out infinite
+}
+
+.s1 {
+    left: -18px;
+    top: 14%;
+    color: var(--pink)
+}
+
+.s2 {
+    right: -10px;
+    top: 4%;
+    color: var(--lime);
+    font-size: 46px;
+    animation-delay: .7s
+}
+
+.s3 {
+    left: 10%;
+    bottom: -16px;
+    color: var(--sky);
+    animation-delay: 1.4s
+}
+
+@keyframes twinkle {
+    50% {
+        transform: scale(1.4) rotate(20deg)
+    }
+}
+
+/* ===== Portrait "hi there!" tag ===== */
+.me-tag {
+    position: absolute;
+    left: -14px;
+    bottom: 18%;
+    background: var(--lime);
+    color: #1b1340;
+    border: 3px solid var(--ink);
+    border-radius: 99px;
+    padding: 6px 16px;
+    font-weight: 800;
+    box-shadow: 4px 4px 0 var(--ink);
+    rotate: -8deg;
+    font-size: 16px
+}
+
+.me-tag.bump {
+    animation: bump .4s cubic-bezier(.3, 1.8, .5, 1)
+}
+
+@keyframes bump {
+    50% {
+        scale: 1.25
+    }
+}
+
+/* ===== Portrait click-pop tooltip ===== */
+.me-pop {
+    position: absolute;
+    z-index: 5;
+    width: max-content;
+    max-width: 230px;
+    translate: -50% -120%;
+    background: #fff;
+    color: #1b1340;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-weight: 800;
+    font-size: 15px;
+    line-height: 1.3;
+    text-align: center;
+    box-shadow: 4px 4px 0 var(--ink);
+    pointer-events: none;
+    animation: popIn .35s cubic-bezier(.3, 1.8, .5, 1) both
+}
+
+@keyframes popIn {
+    from {
+        scale: .4;
+        opacity: 0
+    }
+}
+
+/* ===== Pointer-events pass-through in hero ===== */
+.me-frame,
+.me-tag {
+    pointer-events: auto
+}
+
+.me-frame img {
+    cursor: none
+}
+
+.hero>*:not(.me) {
+    pointer-events: none
+}
+
+.hero h1 .word,
+.hero .btn,
+.hero .role em {
+    pointer-events: auto
+}
+
+/* ===== Mobile tweaks ===== */
+@media (max-width:700px) {
+    .me {
+        width: 58vw;
+        right: -2vw;
+        bottom: 20px;
+        opacity: .4
+    }
+
+    .me-tag {
+        display: none
+    }
+}

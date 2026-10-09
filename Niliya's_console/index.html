@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Your Name — Developer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="cur"></div>
+    <div class="dot"></div>
+    <nav>
+        <a href="#" id="brandTag" class="brand-tag" aria-label="Niliya Shree - Back to top" data-s="0"><b>Niliya
+                Shree</b></a>
+        <div class="nav-btns">
+            <button class="icon-btn" id="theme" type="button" data-s="5" aria-label="Switch to dark theme">
+                <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5z" />
+                </svg>
+                <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="12" cy="12" r="4.5" />
+                    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" />
+                </svg>
+            </button>
+            <button class="icon-btn" id="curBtn" type="button" data-s="3" aria-pressed="false"
+                aria-label="Switch to snake cursor">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="6.5" y="2.5" width="11" height="19" rx="5.5" />
+                    <path d="M12 2.5v7M6.5 9.5h11" />
+                </svg>
+            </button>
+            <button class="icon-btn sound" id="snd" type="button" aria-pressed="true" aria-label="Mute sound">
+                <svg class="i-on" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+                    <path d="M15.5 8.5a5 5 0 0 1 0 7M18.2 5.8a9 9 0 0 1 0 12.4" />
+                </svg>
+                <svg class="i-off" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" />
+                    <path d="M16 9.5l5 5M21 9.5l-5 5" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <figure class="me" id="me">
+            <div class="me-frame"><img src="images/me.png" alt="Illustrated portrait of me"></div>
+            <span class="sp s1" aria-hidden="true">✦</span>
+            <span class="sp s2" aria-hidden="true">★</span>
+            <span class="sp s3" aria-hidden="true">♥</span>
+            <button class="me-tag" type="button" data-s="4">hi there!</button>
+        </figure>
+        <h1 id="h" aria-label="Hi, I'm Your Name">Hi, I'm Niliya Shree</h1>
+        <p class="role">I build <em id="role">websites</em></p>
+        <p class="lead">Developer who likes things that bounce, click and feel alive. Swap in your own story here.</p>
+        <div><a class="btn" href="#work">See my work</a></div>
+    </section>
+
+    <div class="marq">
+        <div id="m">React ✦ Node ✦ Python ✦ APIs ✦ Databases ✦ Design systems ✦ React ✦ Node ✦ Python ✦ APIs ✦ Databases
+            ✦ Design systems ✦ React ✦ Node ✦ Python ✦ APIs ✦ Databases ✦ Design systems ✦</div>
+    </div>
+
+    <div class="duo">
+
+        <section id="experience">
+            <h2 class="rv">Where I've worked</h2>
+            <div class="xps rv">
+
+                <article class="xp" style="--c:var(--sun)">
+                    <button class="xp-head" aria-expanded="false" aria-controls="xp1" data-s="1">
+                        <span class="xp-logo" aria-hidden="true">F</span>
+                        <span class="xp-main">
+                            <span class="xp-top"><b class="xp-co">FoodNest(s) Technologies Pvt Ltd</b><i
+                                    class="xp-dots"></i><span class="xp-when">May 2025 – Present</span><span
+                                    class="xp-chev" aria-hidden="true"></span></span>
+                            <span class="xp-role">Full-Stack AI Engineer Intern <em class="pill now">Current</em></span>
+                            <span class="xp-sum">Built a multi-model AI pipeline that routes coding tasks across 6+ LLMs
+                                and
+                                cut inference cost by 95%, plus a RAG agent and a secure remote gateway for
+                                developers.</span>
+                        </span>
+                    </button>
+                    <div class="xp-body" id="xp1">
+                        <div>
+                            <ul>
+                                <li>Built a multi-model AI pipeline (MCP-based) that routes coding tasks across 6+ LLMs
+                                    by
+                                    role: authoring, review, meta-review and testing. It cut per-task inference cost by
+                                    95%
+                                    (about $0.008 vs $0.17).</li>
+                                <li>Engineered a TF-IDF + BM25 RAG pipeline with a LangGraph async agent, a Redis
+                                    semantic
+                                    vector cache and async MongoDB chat history.</li>
+                                <li>Deployed a secure, Cloudflare Access-gated remote gateway so developers can reach
+                                    the
+                                    pipeline through a lightweight local agent.</li>
+                            </ul>
+                            <div class="tags"><i>LangGraph</i><i>RAG</i><i>Redis</i><i>MongoDB</i><i>Cloudflare</i>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="xp" style="--c:var(--sky)">
+                    <button class="xp-head" aria-expanded="false" aria-controls="xp2" data-s="2">
+                        <span class="xp-logo" aria-hidden="true">B</span>
+                        <span class="xp-main">
+                            <span class="xp-top"><b class="xp-co">Brutanix Studios</b><i class="xp-dots"></i><span
+                                    class="xp-when">Nov 2025 – May 2026</span><span class="xp-chev"
+                                    aria-hidden="true"></span></span>
+                            <span class="xp-role">AI Full-Stack Developer <em class="pill">Past</em></span>
+                            <span class="xp-sum">Built production FastAPI microservices, a WhatsApp webhook server and a
+                                RAG-backed sales chatbot API for real business clients.</span>
+                        </span>
+                    </button>
+                    <div class="xp-body" id="xp2">
+                        <div>
+                            <ul>
+                                <li>Built production FastAPI microservices with async/await: a WhatsApp webhook server
+                                    with
+                                    WebSocket and payment routing, an OpenRouter LLM proxy, and a RAG-backed sales
+                                    chatbot
+                                    API for real business clients.</li>
+                                <li>Developed backend workflows with MongoDB, Docker and AWS for document ingestion,
+                                    vector
+                                    embeddings and AI fallback handling.</li>
+                                <li>Integrated LLM workflows and REST APIs for CRM, ticketing, payments and analytics to
+                                    automate work end to end.</li>
+                            </ul>
+                            <div class="tags"><i>FastAPI</i><i>Docker</i><i>AWS</i><i>MongoDB</i><i>WebSockets</i></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="xp" style="--c:var(--lime)">
+                    <button class="xp-head" aria-expanded="false" aria-controls="xp3" data-s="3">
+                        <span class="xp-logo" aria-hidden="true">C</span>
+                        <span class="xp-main">
+                            <span class="xp-top"><b class="xp-co">CrakCode</b><i class="xp-dots"></i><span
+                                    class="xp-when">Apr 2025 – Oct 2025</span><span class="xp-chev"
+                                    aria-hidden="true"></span></span>
+                            <span class="xp-role">React Developer Intern <em class="pill">Past</em></span>
+                            <span class="xp-sum">Built full-stack web apps with Node.js, Firebase and REST APIs, plus
+                                reusable React components and real-time analytics features.</span>
+                        </span>
+                    </button>
+                    <div class="xp-body" id="xp3">
+                        <div>
+                            <ul>
+                                <li>Built and maintained full-stack web apps with Node.js, Firebase and REST APIs,
+                                    including
+                                    authentication and database features.</li>
+                                <li>Added analytics and real-time data processing, working in Git workflows with Docker
+                                    and
+                                    cloud deployments.</li>
+                                <li>Created reusable React components and wired them to REST APIs for responsive
+                                    interfaces
+                                    and smooth data flow.</li>
+                            </ul>
+                            <div class="tags"><i>React</i><i>Node.js</i><i>Firebase</i><i>REST APIs</i></div>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="tools">
+            <h2 class="rv">My Toolkit</h2>
+            <div class="skills rv" id="sk"></div>
+        </section>
+    </div>
+    <section id="work">
+        <h2 class="rv">Things I made</h2>
+        <div class="grid">
+            <button class="card rv" style="--c:var(--sun);--rot:-2deg;--img:url(images/project1.jfif)" data-s="0">
+                <div class="card-img">
+                    <img src="images/project1.jfif" alt="Project One preview">
+                </div>
+                <div>
+                    <h3>AI GitHub Assistant</h3>
+                    <p>MCP GitHub Assistant with natural language process</p>
+                    <div class="tags"><i>Python</i><i>LLM</i><i>TinyLlama</i></div>
+                </div>
+            </button>
+            <button class="card rv" style="--c:var(--sky);--rot:1.5deg;--img:url(images/project2.jpeg)" data-s="1">
+                <div class="card-img">
+                    <img src="images/project2.jpeg" alt="Project Two preview">
+                </div>
+                <div>
+                    <h3>Spam detection bot</h3>
+                    <p>Telegram bot that detects irritating spam emails and move it to spam folder with one click</p>
+                    <div class="tags"><i>Python</i><i>ML</i><i>Telegram bot</i></div>
+                </div>
+            </button>
+            <button class="card rv" style="--c:var(--lime);--rot:-1deg;--img:url(images/project3.jpeg)" data-s="2">
+                <div class="card-img">
+                    <img src="images/project3.jpeg" alt="Project Three preview">
+                </div>
+                <div>
+                    <h3>working with LLM</h3>
+                    <p>Fine tuned and llm and made it for business</p>
+                    <div class="tags"><i>TypeScript</i><i>SQL</i></div>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <h2 class="rv">Let's build something</h2>
+
+        <div class="scene rv">
+            <div class="globe" aria-hidden="true">
+                <svg class="land" viewBox="0 0 800 220" preserveAspectRatio="none">
+                    <defs>
+                        <g id="world" fill="#c6f432" stroke="#1b1340" stroke-width="3" stroke-linejoin="round">
+                            <path d="M30 40 L90 24 L130 40 L120 78 L95 96 L70 84 L40 70Z" />
+                            <path d="M96 112 L124 108 L140 134 L126 184 L108 190 L100 150Z" />
+                            <path d="M182 34 L226 28 L236 52 L210 64 L186 56Z" />
+                            <path d="M196 78 L238 74 L256 112 L238 168 L212 160 L200 118Z" />
+                            <path d="M246 34 L330 24 L376 46 L360 84 L316 92 L276 76 L250 60Z" />
+                            <path d="M326 142 L370 138 L380 164 L346 176 L326 164Z" />
+                        </g>
+                    </defs>
+                    <use href="#world" />
+                    <use href="#world" x="400" />
+                </svg>
+            </div>
+
+            <div class="orbit">
+                <div class="sat" style="--a:0deg"><a href="mailto:niliya1603@gmail.com" data-s="1"
+                        aria-label="Email me">✉️ Email</a></div>
+                <div class="sat" style="--a:120deg"><a href="https://github.com/Niliya-Shree" target="_blank"
+                        rel="noopener" data-s="2" aria-label="GitHub">🐙 GitHub</a></div>
+                <div class="sat" style="--a:240deg"><a href="https://linkedin.com/in/niliya-shree-6a8b16229/"
+                        target="_blank" rel="noopener" data-s="3" aria-label="LinkedIn">💼 LinkedIn</a></div>
+            </div>
+        </div>
+
+        <a href="mailto:niliya1603@gmail.com" class="mail rv" data-s="1">niliya1603@gmail.com</a>
+    </footer>
+    <div class="pet" id="pet">
+        <div class="bubble" id="bubble" role="status">Hi! Click me</div>
+
+        <div class="menu" id="menu" hidden>
+            <button data-act="feed" data-s="0">🍖 Feed the pet</button>
+            <button data-act="play" data-s="1">⚽ Play with the pet</button>
+            <button data-act="walk" data-s="2">🦮 Take the pet for a walk</button>
+            <button data-act="profile" data-s="5">🎀 Pet profile</button>
+        </div>
+
+        <div class="profile" id="profile" hidden>
+            <h4>Pet profile</h4>
+
+            <div class="pf-row">
+                <b>Gender</b>
+                <div class="pf-opts">
+                    <button class="chip" data-g="girl" aria-pressed="true">Girl</button>
+                    <button class="chip" data-g="boy" aria-pressed="false">Boy</button>
+                </div>
+            </div>
+
+            <div class="pf-row">
+                <b>Color</b>
+                <div class="pf-opts">
+                    <button class="sw" data-color="#ffffff" style="background:#ffffff" aria-label="White"
+                        aria-pressed="false"></button>
+                    <button class="sw" data-color="#2b2540" style="background:#2b2540" aria-label="Black"
+                        aria-pressed="false"></button>
+                    <button class="sw" data-color="#ff9f43" style="background:#ff9f43" aria-label="Orange"
+                        aria-pressed="false"></button>
+                    <button class="sw" data-color="#b8bcc8" style="background:#b8bcc8" aria-label="Grey"
+                        aria-pressed="false"></button>
+                    <button class="sw" data-color="#ffe9c9" style="background:#ffe9c9" aria-label="Cream"
+                        aria-pressed="false"></button>
+                    <button class="sw" data-color="#8a5a3c" style="background:#8a5a3c" aria-label="Brown"
+                        aria-pressed="false"></button>
+                </div>
+            </div>
+
+            <div class="pf-row">
+                <b>Accessories</b>
+                <div class="pf-opts">
+                    <button class="chip" data-acc="bow" aria-pressed="false">🎀 Bow</button>
+                    <button class="chip" data-acc="crown" aria-pressed="false">👑 Crown</button>
+                    <button class="chip" data-acc="glasses" aria-pressed="false">🕶️ Glasses</button>
+                    <button class="chip" data-acc="scarf" aria-pressed="false">🧣 Scarf</button>
+                </div>
+            </div>
+
+            <button class="chip done" id="pfDone">Done</button>
+        </div>
+
+        <button class="body" id="petBody" aria-label="Your pet. Click for options" data-s="4"></button>
+        <div class="meter" title="Mood"><span id="mood"></span></div>
+    </div>
+
+    <!-- JS modules – order matters: sound first (defines shared audio globals) -->
+    <script src="js/sound.js"></script>
+    <script src="js/cursor.js"></script>
+    <script src="js/scroll.js"></script>
+    <script src="js/hero.js"></script>
+    <script src="js/skills.js"></script>
+    <script src="js/pet.js"></script>
+    <script src="js/experience.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

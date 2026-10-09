@@ -1,0 +1,506 @@
+/* ===== Project cards grid ===== */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px
+}
+
+.card {
+    background: var(--c);
+    color: #1b1340;
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    padding: 20px;
+    min-height: 270px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 7px 7px 0 var(--ink);
+    transform: rotate(var(--rot, 0deg));
+    transition: transform .2s, box-shadow .2s;
+    text-align: left;
+    width: 100%;
+    will-change: transform;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/* Card click pop-up message */
+.card-pop {
+    position: absolute;
+    z-index: 9999;
+    width: max-content;
+    max-width: 270px;
+    transform: translate(-50%, -115%);
+    background: #ffffff;
+    color: #1b1340;
+    border: 3.5px solid var(--ink);
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: center;
+    box-shadow: 5px 5px 0 var(--ink);
+    pointer-events: none;
+    animation: popIn .35s cubic-bezier(.3, 1.8, .5, 1) both;
+}
+
+.card.rv.in {
+    transform: rotate(var(--rot, 0deg));
+}
+
+/* Card dynamic mousemove spotlight glare */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, 0.28) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+    border-radius: inherit;
+    z-index: 2;
+}
+
+.card:hover::after {
+    opacity: 1;
+}
+
+/* Card image container */
+.card-img {
+    width: 100%;
+    height: 160px;
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #ffffff;
+    position: relative;
+    box-shadow: 2px 2px 0 var(--ink);
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .3s ease;
+}
+
+.card:hover .card-img img {
+    transform: scale(1.06);
+}
+
+/* Project image background overlay (fallback / decorative accent) */
+.card[style*="--img"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--img);
+    background-size: cover;
+    background-position: center;
+    opacity: 0.12;
+    border-radius: inherit;
+    transition: opacity .2s;
+    pointer-events: none;
+}
+
+.card[style*="--img"]:hover::before {
+    opacity: 0.22;
+}
+
+.card>* {
+    position: relative;
+    z-index: 1
+}
+
+
+.card:hover {
+    box-shadow: 12px 12px 0 var(--ink)
+}
+
+.card h3 {
+    font-size: 30px;
+    margin: 0 0 8px
+}
+
+.card p {
+    margin: 0;
+    line-height: 1.4
+}
+
+.card .e {
+    font-size: 60px
+}
+
+/* ===== Tags ===== */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px
+}
+
+.tags i {
+    font-style: normal;
+    background: #fff9;
+    border: 2px solid #1b1340;
+    border-radius: 99px;
+    padding: 2px 12px;
+    font-size: 14px;
+    font-weight: 800
+}
+
+/* ===== Skills cloud (legacy — overridden below) ===== */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px
+}
+
+.skill {
+    border: 3px solid var(--ink);
+    background: var(--card);
+    border-radius: 99px;
+    padding: 10px 22px;
+    font-size: 20px;
+    font-weight: 800;
+    transition: transform .15s, background .15s
+}
+
+.skill:hover,
+.skill.on {
+    background: var(--sky);
+    color: #1b1340;
+    transform: scale(1.12) rotate(-3deg)
+}
+
+/* ===== Flat skill pill buttons ===== */
+.skills .skill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #1b1340;
+    border: 3px solid var(--ink);
+    border-radius: 99px;
+    padding: 8px 20px 8px 14px;
+    font-size: 18px;
+    font-weight: 800;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform .15s, box-shadow .15s, background .15s
+}
+
+.skills .skill .ic {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    font-size: 20px;
+    line-height: 1
+}
+
+.skills .skill .ic img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain
+}
+
+.skills .skill:hover {
+    transform: translateY(-4px) rotate(-2deg);
+    box-shadow: 6px 8px 0 var(--ink);
+    background: #fff
+}
+
+.skills .skill:nth-child(3n):hover {
+    rotate: 2deg
+}
+
+.skills .skill.on {
+    background: var(--lime);
+    color: #1b1340;
+    transform: translateY(2px);
+    box-shadow: 2px 2px 0 var(--ink)
+}
+
+.skills.in .skill {
+    animation: chipIn .5s cubic-bezier(.3, 1.8, .5, 1) both;
+    animation-delay: calc(var(--i)*28ms)
+}
+
+@keyframes chipIn {
+    from {
+        transform: scale(.3) translateY(14px);
+        opacity: 0
+    }
+}
+
+@media (max-width:600px) {
+    .skills .skill {
+        font-size: 16px;
+        padding: 6px 16px 6px 12px
+    }
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 80px 6vw 120px;
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto
+}
+
+footer .mail {
+    font-size: clamp(22px, 5vw, 48px);
+    font-weight: 800;
+    color: var(--pink);
+    word-break: break-word
+}
+
+/* ===== Spinning globe + orbit ===== */
+.scene {
+    position: relative;
+    width: 340px;
+    height: 340px;
+    margin: 40px auto 30px;
+    display: grid;
+    place-items: center
+}
+
+.globe {
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: #4cc9f0;
+    border: 4px solid var(--ink);
+    box-shadow: 7px 7px 0 var(--ink)
+}
+
+.globe::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 28%, rgba(255, 255, 255, .55), transparent 38%, rgba(27, 19, 64, .5) 100%)
+}
+
+.land {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    animation: spinMap 16s linear infinite
+}
+
+@keyframes spinMap {
+    to {
+        transform: translateX(-50%)
+    }
+}
+
+.orbit {
+    position: absolute;
+    inset: 0;
+    animation: spin 18s linear infinite
+}
+
+.orbit::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 3px dashed var(--ink);
+    border-radius: 50%;
+    opacity: .35
+}
+
+.scene:hover .orbit,
+.scene:hover .sat a {
+    animation-play-state: paused
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+.sat {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: rotate(var(--a)) translateX(170px)
+}
+
+.sat a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    translate: -50% -50%;
+    rotate: calc(var(--a) * -1);
+    animation: unspin 18s linear infinite;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    border: 3px solid var(--ink);
+    border-radius: 99px;
+    padding: 8px 16px;
+    font-weight: 800;
+    color: #1b1340;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: scale .15s
+}
+
+.sat:nth-child(1) a {
+    background: var(--sun)
+}
+
+.sat:nth-child(2) a {
+    background: var(--pink)
+}
+
+.sat:nth-child(3) a {
+    background: var(--lime)
+}
+
+.sat a:hover {
+    scale: 1.2
+}
+
+@keyframes unspin {
+    to {
+        transform: rotate(-360deg)
+    }
+}
+
+@media (max-width:480px) {
+    .scene {
+        transform: scale(.8);
+        margin: 10px auto -10px
+    }
+}
+
+/* orbiting link pills */
+.sat a {
+    font-size: 24px;
+    padding: 11px 24px;
+    border-width: 3px;
+    box-shadow: 5px 5px 0 var(--ink);
+    gap: 10px
+}
+
+.sat a:hover {
+    scale: 1.1
+}
+
+@media (max-width:480px) {
+    .sat a {
+        font-size: 18px;
+        padding: 8px 16px
+    }
+}
+
+/* ---------- Experience (2/3) + Tools (1/3) ---------- */
+.duo {
+    max-width: 1200px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 110px 6vw 60px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 36px;
+    align-items: start
+}
+
+.duo>section {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    min-width: 0
+}
+
+.duo h2 {
+    font-size: clamp(30px, 4vw, 56px);
+    margin-bottom: 26px
+}
+
+.duo>.tools {
+    position: sticky;
+    top: 80px
+}
+
+/* smaller tool buttons so they fit the narrow column */
+.duo .skills {
+    gap: 9px
+}
+
+.duo .skills .skill {
+    font-size: 13px;
+    padding: 5px 12px 5px 8px;
+    gap: 6px;
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--ink)
+}
+
+.duo .skills .skill .ic {
+    width: 18px;
+    height: 18px;
+    font-size: 14px
+}
+
+.duo .skills .skill .ic img {
+    width: 18px;
+    height: 18px
+}
+
+.duo .skills .skill:hover {
+    transform: translateY(-3px) rotate(-2deg);
+    box-shadow: 3px 5px 0 var(--ink)
+}
+
+.duo .skills .skill.on {
+    box-shadow: 1px 1px 0 var(--ink)
+}
+
+/* slightly tighter experience rows in the narrower column */
+.duo .xp-co {
+    font-size: 20px
+}
+
+.duo .xp-body>div {
+    padding-left: 84px
+}
+
+@media (max-width:1050px) {
+    .duo .xp-dots {
+        display: none
+    }
+
+    .duo .xp-top {
+        flex-wrap: wrap;
+        gap: 2px 12px
+    }
+}
+
+@media (max-width:900px) {
+    .duo {
+        grid-template-columns: 1fr;
+        gap: 56px
+    }
+
+    .duo>.tools {
+        position: static
+    }
+
+    .duo .skills .skill {
+        font-size: 15px;
+        padding: 6px 14px 6px 10px
+    }
+}

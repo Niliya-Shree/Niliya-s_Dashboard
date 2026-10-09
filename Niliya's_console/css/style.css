@@ -1,0 +1,11 @@
+/* ============================================================
+   style.css — import hub
+   All component styles live in their own files.
+   Order matters: base → nav → hero → sections → pet → experience
+   ============================================================ */
+@import url("base.css");
+@import url("nav.css");
+@import url("hero.css");
+@import url("sections.css");
+@import url("pet.css");
+@import url("experience.css");

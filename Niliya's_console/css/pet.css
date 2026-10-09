@@ -1,0 +1,598 @@
+/* ===== Pet container ===== */
+.pet {
+    position: fixed;
+    left: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    width: 110px;
+    --bl: 100vw
+}
+
+/* ===== Pet body button ===== */
+.pet .body {
+    background: none;
+    border: 0;
+    padding: 0;
+    display: block;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2;
+    transition: rotate .7s cubic-bezier(.3, 1.3, .5, 1), scale .7s, translate .7s
+}
+
+.pet svg {
+    display: block;
+    overflow: visible;
+    animation: float 3s ease-in-out infinite
+}
+
+.pet.flip svg {
+    transform: scaleX(-1)
+}
+
+.pet .body:hover {
+    animation: wiggle .5s
+}
+
+/* ===== Eye / mouth ===== */
+.eye {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blink 4s infinite
+}
+
+.mouth {
+    transform-box: fill-box;
+    transform-origin: center
+}
+
+/* ===== Eating ===== */
+.pet.eat .mouth {
+    animation: chomp .25s infinite
+}
+
+/* ===== Walking ===== */
+.pet.walk .body {
+    animation: bob .35s infinite
+}
+
+.pet.walk .foot {
+    animation: step .35s infinite
+}
+
+.pet.walk .foot.r {
+    animation-delay: .175s
+}
+
+/* ===== Jumping ===== */
+.pet.jump .body {
+    animation: jump .6s ease-out 4
+}
+
+/* ===== Mood meter ===== */
+.meter {
+    height: 12px;
+    margin: 6px 10px 0;
+    border: 3px solid var(--ink);
+    border-radius: 99px;
+    background: var(--card);
+    overflow: hidden
+}
+
+.meter span {
+    display: block;
+    height: 100%;
+    background: var(--pink);
+    transition: width .4s
+}
+
+/* ===== Speech bubble ===== */
+.bubble {
+    position: absolute;
+    left: 0;
+    bottom: 135px;
+    width: max-content;
+    max-width: 200px;
+    background: var(--card);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 18px;
+    padding: 8px 14px;
+    font-weight: 800;
+    font-size: 15px;
+    opacity: 0;
+    transform: translateY(8px) scale(.9);
+    transition: .25s;
+    pointer-events: none
+}
+
+.bubble.show {
+    opacity: 1;
+    transform: none
+}
+
+.pet.open .bubble {
+    opacity: 0
+}
+
+.bubble,
+.menu,
+.profile {
+    z-index: 6
+}
+
+/* ===== Action menu ===== */
+.menu {
+    position: absolute;
+    left: 0;
+    bottom: 135px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: max-content
+}
+
+.menu[hidden] {
+    display: none
+}
+
+.menu button {
+    border: 3px solid var(--ink);
+    background: var(--sun);
+    color: #1b1340;
+    font-weight: 800;
+    border-radius: 99px;
+    padding: 9px 18px;
+    text-align: left;
+    box-shadow: 4px 4px 0 var(--ink);
+    animation: menuIn .3s cubic-bezier(.3, 1.8, .5, 1) both
+}
+
+.menu button:nth-child(2) {
+    background: var(--pink);
+    animation-delay: .06s
+}
+
+.menu button:nth-child(3) {
+    background: var(--sky);
+    animation-delay: .12s
+}
+
+.menu button:nth-child(4) {
+    background: var(--lime);
+    animation-delay: .18s
+}
+
+.menu button:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink)
+}
+
+.pet.busy .body {
+    pointer-events: none
+}
+
+/* ===== Food + ball props ===== */
+.food,
+.ball {
+    position: absolute;
+    font-size: 34px;
+    pointer-events: none
+}
+
+.food {
+    left: 38px;
+    top: -110px;
+    animation: drop .7s ease-in forwards
+}
+
+.ball {
+    left: 105px;
+    bottom: 20px;
+    animation: ball .6s ease-in-out infinite
+}
+
+@keyframes drop {
+    to {
+        top: 20px;
+        opacity: .2
+    }
+}
+
+@keyframes ball {
+    50% {
+        transform: translateY(-70px)
+    }
+}
+
+/* ===== Base pet animations ===== */
+@keyframes float {
+    50% {
+        transform: translateY(-6px)
+    }
+}
+
+@keyframes wiggle {
+    25% {
+        transform: rotate(-8deg)
+    }
+
+    75% {
+        transform: rotate(8deg)
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    94%,
+    100% {
+        transform: scaleY(1)
+    }
+
+    97% {
+        transform: scaleY(.1)
+    }
+}
+
+@keyframes chomp {
+    50% {
+        transform: scaleY(2.8)
+    }
+}
+
+@keyframes bob {
+    50% {
+        transform: translateY(-8px) rotate(3deg)
+    }
+}
+
+@keyframes step {
+    50% {
+        transform: translateY(-7px)
+    }
+}
+
+@keyframes jump {
+    50% {
+        transform: translateY(-60px) scaleY(1.1)
+    }
+}
+
+@keyframes menuIn {
+    from {
+        transform: scale(.3) translateY(20px);
+        opacity: 0
+    }
+}
+
+/* ===== Profile panel ===== */
+.profile {
+    position: absolute;
+    left: 0;
+    bottom: 135px;
+    width: 250px;
+    background: var(--card);
+    color: var(--ink);
+    border: 3px solid var(--ink);
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 6px 6px 0 var(--ink);
+    animation: menuIn .3s cubic-bezier(.3, 1.8, .5, 1) both
+}
+
+.profile[hidden] {
+    display: none
+}
+
+.profile h4 {
+    margin: 0 0 12px;
+    font-size: 22px
+}
+
+.pf-row {
+    margin-bottom: 12px
+}
+
+.pf-row b {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 6px
+}
+
+.pf-opts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px
+}
+
+/* ===== Chip + swatch controls ===== */
+.chip {
+    border: 3px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 99px;
+    padding: 4px 12px;
+    font-weight: 800;
+    font-size: 14px;
+    transition: transform .12s, background .12s
+}
+
+.chip:hover {
+    transform: scale(1.07)
+}
+
+.chip[aria-pressed="true"] {
+    background: var(--pink);
+    color: #1b1340
+}
+
+.chip.done {
+    background: var(--lime);
+    color: #1b1340;
+    width: 100%;
+    padding: 8px;
+    margin-top: 2px
+}
+
+.sw {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid var(--ink);
+    padding: 0;
+    transition: transform .12s
+}
+
+.sw:hover {
+    transform: scale(1.15)
+}
+
+.sw[aria-pressed="true"] {
+    outline: 3px solid var(--sun);
+    outline-offset: 2px;
+    transform: scale(1.15)
+}
+
+/* ===== Sleeping state ===== */
+.pet.sleep .eye {
+    animation: none;
+    transform: scaleY(.12)
+}
+
+.pet.sleep .mouth {
+    transform: scale(.55)
+}
+
+.pet.sleep svg {
+    animation: snore 3.2s ease-in-out infinite
+}
+
+.pet.sleep .meter {
+    opacity: .55
+}
+
+/* ===== ZZZ bubble ===== */
+.zzz {
+    position: absolute;
+    right: -6px;
+    top: -8px;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    display: none;
+    font-weight: 800;
+    color: var(--ink)
+}
+
+.pet.sleep .zzz {
+    display: block
+}
+
+.pet.bedon .zzz {
+    left: 18px;
+    right: auto;
+    top: -6px
+}
+
+.zzz span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    opacity: 0;
+    font-size: 20px;
+    animation: zz 2.7s ease-out infinite
+}
+
+.zzz span:nth-child(2) {
+    animation-delay: .9s;
+    font-size: 26px
+}
+
+.zzz span:nth-child(3) {
+    animation-delay: 1.8s;
+    font-size: 32px
+}
+
+@keyframes zz {
+    0% {
+        opacity: 0;
+        transform: translate(0, 0) scale(.6)
+    }
+
+    25% {
+        opacity: 1
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(26px, -60px) scale(1.2) rotate(12deg)
+    }
+}
+
+@keyframes snore {
+    50% {
+        transform: scale(1.04, .97) translateY(2px)
+    }
+}
+
+/* ===== Lying down ===== */
+.pet.lying .body {
+    rotate: -90deg;
+    scale: .8;
+    translate: 4px -6px
+}
+
+.pet.lying .body:hover {
+    animation: none
+}
+
+.pet.lying svg {
+    animation: none
+}
+
+.pet.lying.sleep svg {
+    animation: snore 3.2s ease-in-out infinite
+}
+
+/* ===== Bed + sheet ===== */
+.bed,
+.sheet {
+    display: none;
+    position: absolute
+}
+
+.pet.bedon .bed,
+.pet.bedon .sheet {
+    display: block
+}
+
+.bed {
+    left: var(--bl);
+    bottom: 14px;
+    width: 180px;
+    height: 36px;
+    z-index: 1;
+    transition: left 3s cubic-bezier(.2, .7, .3, 1)
+}
+
+.bed i {
+    position: absolute;
+    display: block;
+    border: 3px solid var(--ink)
+}
+
+.bed .hb {
+    left: -2px;
+    top: -26px;
+    width: 14px;
+    height: 56px;
+    background: #b8a1ff;
+    border-radius: 8px
+}
+
+.bed .mat {
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 22px;
+    background: #ff8cc6;
+    border-radius: 10px
+}
+
+.bed .pil {
+    left: 14px;
+    top: -8px;
+    width: 52px;
+    height: 18px;
+    background: #fff;
+    border-radius: 12px;
+    z-index: 1
+}
+
+.bed::before,
+.bed::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 9px;
+    height: 15px;
+    background: var(--ink);
+    border-radius: 0 0 4px 4px
+}
+
+.bed::before {
+    left: 14px
+}
+
+.bed::after {
+    right: 14px
+}
+
+.sheet {
+    left: calc(var(--bl) + 82px);
+    bottom: 24px;
+    width: 86px;
+    height: 62px;
+    z-index: 3;
+    background: repeating-linear-gradient(90deg, #c9b6ff 0 14px, #b49cff 14px 28px);
+    border: 3px solid var(--ink);
+    border-radius: 26px 8px 8px 12px;
+    transform-origin: 100% 100%;
+    transform: scale(.5, .3);
+    transition: left 3s cubic-bezier(.2, .7, .3, 1), transform .8s cubic-bezier(.3, 1.4, .5, 1)
+}
+
+.pet.tucked .sheet {
+    transform: none
+}
+
+/* leaving: bed speeds up */
+.pet.leaving .bed {
+    transition-timing-function: cubic-bezier(.7, 0, .9, .6)
+}
+
+.pet.leaving .sheet {
+    transition-timing-function: cubic-bezier(.7, 0, .9, .6), cubic-bezier(.3, 1.4, .5, 1)
+}
+
+/* ===== Yawn ===== */
+.pet.yawn .mouth {
+    animation: yawnMouth 1.6s ease-in-out
+}
+
+.pet.yawn .eye {
+    animation: none;
+    transform: scaleY(.15);
+    transition: transform .25s
+}
+
+.pet.yawn svg {
+    animation: yawnBody 1.6s ease-in-out
+}
+
+@keyframes yawnMouth {
+
+    0%,
+    100% {
+        transform: scale(1)
+    }
+
+    25%,
+    70% {
+        transform: scale(1.5, 5.2)
+    }
+}
+
+@keyframes yawnBody {
+
+    0%,
+    100% {
+        transform: none
+    }
+
+    30%,
+    65% {
+        transform: scale(.97, 1.07) rotate(-4deg)
+    }
+}
