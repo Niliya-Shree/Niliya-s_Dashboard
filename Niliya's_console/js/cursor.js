@@ -24,9 +24,14 @@ addEventListener('pointermove', e => {
     requestAnimationFrame(loop);
 })();
 
-document.querySelectorAll('a,button').forEach(el => {
-    el.addEventListener('pointerenter', () => cur.classList.add('big'));
-    el.addEventListener('pointerleave', () => cur.classList.remove('big'));
+document.addEventListener('pointerover', e => {
+    if (e.target.closest('a,button')) cur.classList.add('big');
+    const s = e.target.closest('.skill');
+    if (s && !s.contains(e.relatedTarget))
+        beep([...document.querySelectorAll('.skill')].indexOf(s) % 6);
+});
+document.addEventListener('pointerout', e => {
+    if (e.target.closest('a,button')) cur.classList.remove('big');
 });
 
 /* ── Click: confetti burst ── */
@@ -57,10 +62,6 @@ document.addEventListener('click', e => {
         setTimeout(() => p.remove(), 800);
     }
 });
-
-// Skill hover sound
-document.querySelectorAll('.skill').forEach((s, i) =>
-    s.addEventListener('pointerenter', () => beep(i % 6)));
 
 /* ── Project card 3-D tilt & mousemove interaction ── */
 document.querySelectorAll('.card').forEach(c => {
@@ -129,32 +130,24 @@ document.querySelectorAll('.card').forEach(c => {
         }, 3400);
     });
 });
+
 // ---------- Snake cursor mode ----------
 (() => {
     const btn = document.getElementById('curBtn');
+    if (!btn) return;
     const cv = document.createElement('canvas');
     cv.id = 'snake';
     cv.setAttribute('aria-hidden', 'true');
     document.body.appendChild(cv);
     const g = cv.getContext('2d');
 
-    const PX = 9, LEN = 14, GAP = 2.5;
+    const PX = 14, LEN = 9, GAP = 3;
+    const CLICKABLE = 'a,button,[role="button"],input,select,textarea,label,[data-s],.card,.skill,.xp-head,.icon-btn,.btn,.me-tag';
     let on = false, raf = 0, W = 0, H = 0;
-    let px = innerWidth / 2, py = innerHeight / 2;     // mouse
-    let hx = px, hy = py;                              // smoothed head
-    const trail = [];                                  // recent head positions
-
-    function isClickable(el) {
-        if (!el) return false;
-        if (el.closest('a, button, [role="button"], input, select, textarea, label, .clickable, .skill, .card, .xp-head, .brand-tag, .icon-btn, .btn, .nav-link, .me-tag, [data-s], [onclick]')) {
-            return true;
-        }
-        try {
-            const s = window.getComputedStyle(el);
-            if (s.cursor === 'pointer') return true;
-        } catch (e) {}
-        return false;
-    }
+    let px = innerWidth / 2, py = innerHeight / 2;   // mouse
+    let hx = px, hy = py;                            // smoothed head
+    let hot = 0;                                     // 0 = lime, 1 = pink
+    const trail = [];
 
     function size() {
         const d = devicePixelRatio || 1;
@@ -162,50 +155,39 @@ document.querySelectorAll('.card').forEach(c => {
         cv.width = W * d; cv.height = H * d;
         g.setTransform(d, 0, 0, d, 0, 0);
     }
-    addEventListener('resize', size);
+    addEventListener('resize', () => { if (on) size(); });
     addEventListener('pointermove', e => { px = e.clientX; py = e.clientY; });
 
     function frame() {
-        hx += (px - hx) * .05;
-        hy += (py - hy) * .05;
+        hx += (px - hx) * .22;
+        hy += (py - hy) * .22;
         trail.unshift([hx, hy]);
-        if (trail.length > Math.ceil(LEN * GAP) + 2) trail.pop();
+        if (trail.length > LEN * GAP + 2) trail.pop();
+
+        // one hit-test per frame, at the real pointer position
+        const el = document.elementFromPoint(px, py);
+        const target = el && el.closest(CLICKABLE) ? 1 : 0;
+        hot += (target - hot) * .2;                  // smooth lime <-> pink fade
+        const hue = 78 - hot * 108;                  // 78 = lime, -30 = pink
 
         g.clearRect(0, 0, W, H);
-
-        // body from tail to head so the head sits on top
         for (let i = LEN - 1; i >= 0; i--) {
-            const idx = Math.min(Math.floor(i * GAP), trail.length - 1);
-            const p = trail[idx];
+            const p = trail[Math.min(i * GAP, trail.length - 1)];
             if (!p) continue;
             const x = Math.round(p[0] / PX) * PX - PX / 2;
             const y = Math.round(p[1] / PX) * PX - PX / 2;
-            const cx = x + PX / 2;
-            const cy = y + PX / 2;
-
-            const el = document.elementFromPoint(cx, cy);
-            const inClickable = isClickable(el);
-
-            let c;
-            if (inClickable) {
-                // Pink color when inside clickable area
-                c = i === 0 ? '#ffc2e2' : `hsl(${330 + (i / LEN) * 15}, 92%, ${65 - (i / LEN) * 16}%)`;
-            } else {
-                // Smooth green color normally
-                c = i === 0 ? '#9effc5' : `hsl(${142 + (i / LEN) * 16}, 80%, ${52 - (i / LEN) * 16}%)`;
-            }
-
+            const c = i === 0
+                ? `hsl(${hue} 85% 62%)`
+                : `hsl(${hue + (i / LEN) * 22} 78% ${54 - (i / LEN) * 14}%)`;
+            g.shadowBlur = i === 0 ? 6 : 0;
             g.shadowColor = c;
-            g.shadowBlur = 8;
             g.fillStyle = c;
-            g.fillRect(x, y, PX - 1, PX - 1);
-
-            if (i === 0) {                      // eyes
+            g.fillRect(x, y, PX - 2, PX - 2);
+            if (i === 0) {                            // eyes
                 g.shadowBlur = 0;
-                g.fillStyle = inClickable ? '#4a082b' : '#062615';
-                g.fillRect(x + 2, y + 2, 2, 2);
-                g.fillRect(x + 5, y + 2, 2, 2);
-                g.shadowBlur = 8;
+                g.fillStyle = '#1b1340';
+                g.fillRect(x + 3, y + 3, 3, 3);
+                g.fillRect(x + 8, y + 3, 3, 3);
             }
         }
         raf = requestAnimationFrame(frame);

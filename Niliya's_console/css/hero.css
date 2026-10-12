@@ -311,3 +311,51 @@ h2 {
         display: none
     }
 }
+
+/* ---------- Social icon row ---------- */
+.social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px
+}
+
+.social a {
+    pointer-events: auto;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--ink);
+    transition: transform .18s, background .18s, box-shadow .18s
+}
+
+.social a svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+.social a svg.fill {
+    fill: currentColor;
+    stroke: none
+}
+
+.social a:hover {
+    transform: translateY(-3px);
+    background: var(--pink);
+    color: #1b1340;
+    box-shadow: 0 4px 0 var(--ink)
+}
+
+.social a:active {
+    transform: translateY(0);
+    box-shadow: none
+}

@@ -126,3 +126,23 @@ nav b {
         display: none
     }
 }
+
+/* cat toggle */
+.icon-btn#catBtn {
+    background: var(--lime)
+}
+
+.icon-btn#catBtn[aria-pressed="false"] {
+    background: #d9d4e8
+}
+
+@media (hover:none),
+(max-width:599px) {
+    #catBtn {
+        display: none
+    }
+}
+
+.icon-btn[hidden] {
+    display: none
+}
