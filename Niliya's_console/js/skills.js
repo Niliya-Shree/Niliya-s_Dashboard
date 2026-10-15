@@ -12,22 +12,17 @@ const tools = [
     ['JavaScript', 'javascript/javascript-original', '🟨'],
     ['React.js', 'react/react-original', '⚛️'],
     ['TypeScript', 'typescript/typescript-original', '🔷'],
-
     ['Node.js', 'nodejs/nodejs-original', '🟢'],
-
     ['Next.js', 'nextjs/nextjs-original', '▲'],
     ['Redux', 'redux/redux-original', '🔁'],
     ['LLM Evaluation', '', '🧪'],
     ['RAG', '', '📚'],
-
+    ['Cloudflare', 'cloudflare/cloudflare-original', '🛡️'],
     ['Tailwind CSS', 'tailwindcss/tailwindcss-original', '🎨'],
-
-    // ['Express', 'express/express-original', '🚂'],
     ['FastAPI', 'fastapi/fastapi-original', '⚡'],
     ['Linux', 'linux/linux-original', '🐧'],
     ['MySQL', 'mysql/mysql-original', '🐬'],
     ['REST APIs', '', '🔌'],
-
     ['MongoDB', 'mongodb/mongodb-original', '🍃'],
     ['Google Analytics', '', '📊'],
     ['Git', 'git/git-original', '🌿'],
@@ -36,8 +31,6 @@ const tools = [
     ['Vercel', 'vercel/vercel-original', '▲'],
     ['GCP', 'googlecloud/googlecloud-original', '☁️'],
     ['Hetzner VPS', '', '🖥️'],
-
-    ['Cloudflare', 'cloudflare/cloudflare-original', '🛡️'],
 ];
 
 tools.forEach(([name, icon, emoji], i) => {
