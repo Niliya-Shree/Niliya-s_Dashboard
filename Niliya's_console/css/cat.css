@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     width: 84px;
-    height: 60px;
+    height: 66px;
     z-index: 90;
     pointer-events: none;
     will-change: transform
@@ -138,5 +138,23 @@
     .cat-zz span {
         animation: none;
         opacity: 1
+    }
+}
+
+/* sleeping cat breathes */
+#cat.sleeping .cat-flip canvas {
+    transform-origin: 50% 100%;
+    animation: catBreathe 3.2s ease-in-out infinite
+}
+
+@keyframes catBreathe {
+    50% {
+        transform: scale(1.02, 1.05)
+    }
+}
+
+@media (prefers-reduced-motion:reduce) {
+    #cat.sleeping .cat-flip canvas {
+        animation: none
     }
 }

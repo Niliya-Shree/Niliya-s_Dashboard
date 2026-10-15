@@ -4,7 +4,7 @@
     if (matchMedia('(hover:none)').matches) { btn.hidden = true; return; }   // touch-only: no cat
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const SW = 28, SH = 20, S = 3, CW = SW * S, CH = SH * S, GAP = 90;
+    const SW = 28, SH = 22, S = 3, CW = SW * S, CH = SH * S, GAP = 90;
     const INK = '#1b1340', WHITE = '#ffffff';
     const MSGS = [
         'Hey! Following you.',
@@ -39,46 +39,89 @@
     let facingLeft = false, drawn = '', raf = 0;
     let bt = 0, bubOn = false, bubW = 0, bubH = 0, lastMsg = '';
 
-    // ---- pixel sprites: white shapes get an automatic black outline ----
-    function sprite(pose, f) {
-        const w = [], k = [];
-        if (pose === 'walk') {
-            const b = f % 2 ? -1 : 0, ph = [0, 2, 1, 3];
-            w.push([6, 8 + b, 13, 6], [18, 4 + b, 8, 7], [18, 2 + b, 2, 3], [24, 2 + b, 2, 3],
-                [4, 9 + b, 3, 2], f < 2 ? [2, 5 + b, 2, 5] : [2, 6 + b, 2, 4]);
-            [7, 10, 14, 17].forEach((lx, i) => {
-                const up = (f + ph[i]) % 4 === 0;
-                w.push([lx, 12, 2, up ? 3 : 4]);
-            });
-            k.push([21, 6 + b, 1, 2], [24, 6 + b, 1, 2], [25, 8 + b, 1, 1]);
-        } else if (pose === 'sit') {
-            w.push([9, 10, 10, 7], [9, 3, 10, 8], [9, 1, 3, 3], [16, 1, 3, 3],
-                [9, 16, 3, 2], [16, 16, 3, 2], [19, 15, 3, 2],
-                f % 2 ? [22, 12, 2, 4] : [21, 11, 2, 5]);
-            if (f === 3) k.push([10, 7, 3, 1], [15, 7, 3, 1]);       // blink
-            else k.push([11, 6, 1, 2], [16, 6, 1, 2]);
-            k.push([13, 8, 2, 1]);
-        } else {                                                   // sleep (breathing)
-            const b = f % 2;
-            w.push([6, 10 + b, 16, 7 - b], [3, 11 + b, 8, 6 - b], [3, 9 + b, 2, 2], [8, 9 + b, 2, 2], [20, 13, 7, 3]);
-            k.push([4, 13 + b, 2, 1], [7, 13 + b, 2, 1]);
-        }
-        return { w, k };
+    // ---- pixel sprites (drawn from text grids; the black outline is added automatically) ----
+    const PAL = { w: '#ffffff', p: '#ff9ec7', g: '#dcd8ee', k: INK };
+    const r = (n, s) => '.'.repeat(n) + s, w = n => 'w'.repeat(n);
+    const rows = m => { const a = Array(SH).fill(''); for (const y in m) a[y] = m[y]; return a; };
+
+    // sitting cat: left half only, mirrored automatically
+    function sitRows(blink) {
+        const eye = blink
+            ? ['wwwwwwwww', 'wwwkkwwww', 'wwwwwwwww']
+            : ['wwwwkwwww', 'wwwkkwwww', 'wwwkkwwww'];
+        return ['', '.w.......', '.ww......', '.wpw.....', '.wppwwwww', 'wwwwwwwww', 'wwwwwwwww',
+            ...eye, 'wppwwwwwp', 'wwwwwwkkw', 'wwwwwwwww', '.wwwwwwww', '..wwwwwww', '..wwwwwww',
+            '.wwwwwwww', '.wwwwwwww', '.wwwwwwwk', '.wwwwwwwk', '.wwwwwwww'];
     }
+    const tailSit = [
+        rows({ 16: r(22, 'ww'), 17: r(22, 'ww'), 18: r(22, 'ww'), 19: r(21, 'www'), 20: r(20, 'www') }),
+        rows({ 16: r(24, 'ww'), 17: r(23, 'ww'), 18: r(22, 'ww'), 19: r(21, 'www'), 20: r(20, 'www') })
+    ];
+
+    // walking cat, facing right
+    const walkBody = ['', '', '', r(19, 'w...w'), r(18, 'wpw.wpw'), r(18, w(8)), r(18, w(8)),
+        r(18, w(5) + 'kww'), r(18, w(5) + 'kww' + 'p'), r(5, w(21)), r(5, w(20)),
+        r(5, w(15)), r(5, w(15)), r(5, w(15)), r(5, 'www' + 'g'.repeat(9) + 'www'), r(6, w(13))];
+    const tailWalk = [
+        rows({ 5: r(2, 'ww'), 6: r(1, 'ww'), 7: r(1, 'ww'), 8: r(1, 'ww'), 9: r(1, 'wwww'), 10: r(2, 'www') }),
+        rows({ 4: r(3, 'ww'), 5: r(2, 'ww'), 6: r(2, 'ww'), 7: r(1, 'ww'), 8: r(1, 'ww'), 9: r(1, 'wwww'), 10: r(2, 'www') })
+    ];
+
+    // sleeping, curled up
+    const sleepRows = [...Array(10).fill(''),
+    r(6, 'w...w'), r(5, 'wpw.wpw'), r(4, w(18)), r(3, w(20)),
+    r(3, 'ww' + 'kk' + 'www' + 'kk' + w(11)),
+    r(3, w(5) + 'p' + w(14)),
+    r(3, w(20)), r(3, w(20)), r(4, w(18)), r(5, w(16)), r(7, w(12))];
+
+    function put(gr, rws, ox, dy, mirror) {
+        rws.forEach((row, y) => {
+            if (mirror) row += [...row].reverse().join('');
+            [...row].forEach((c, x) => {
+                const yy = y + dy, xx = x + ox;
+                if (c !== '.' && yy >= 0 && yy < SH && xx < SW) gr[yy][xx] = c;
+            });
+        });
+    }
+
+    function build(pose, f) {
+        const gr = Array.from({ length: SH }, () => Array(SW).fill(''));
+        if (pose === 'sit') {
+            put(gr, sitRows(f === 3), 2, 0, true);
+            put(gr, tailSit[f % 2], 0, 0);
+        } else if (pose === 'walk') {
+            const dy = f % 2 ? -1 : 0, ph = [0, 2, 1, 3];
+            [7, 10, 15, 18].forEach((lx, i) => {
+                const end = (f + ph[i]) % 4 === 0 ? 17 : 19;
+                for (let y = 15; y <= end; y++) { gr[y][lx] = 'w'; gr[y][lx + 1] = 'w'; }
+            });
+            put(gr, walkBody, 0, dy);
+            put(gr, tailWalk[f % 2], 0, dy);
+        } else {
+            put(gr, sleepRows, 0, 0);
+            for (let x = 13; x <= 21; x++) gr[17][x] = 'k';
+            for (let x = 13; x <= 20; x++) gr[18][x] = 'g';
+            for (let x = 14; x <= 19; x++) gr[19][x] = 'g';
+        }
+        // automatic 1px black outline around the silhouette
+        const out = gr.map(row => row.slice());
+        for (let y = 0; y < SH; y++) for (let x = 0; x < SW; x++) {
+            if (gr[y][x]) continue;
+            if ((y > 0 && gr[y - 1][x]) || (y < SH - 1 && gr[y + 1][x]) ||
+                (x > 0 && gr[y][x - 1]) || (x < SW - 1 && gr[y][x + 1])) out[y][x] = 'k';
+        }
+        return out;
+    }
+
     function draw() {
         const key = state + frame;
         if (key === drawn) return;
         drawn = key;
-        const { w, k } = sprite(state, frame);
         g.clearRect(0, 0, SW, SH);
-        g.fillStyle = INK;
-        w.forEach(r => g.fillRect(r[0] - 1, r[1] - 1, r[2] + 2, r[3] + 2));
-        g.fillStyle = WHITE;
-        w.forEach(r => g.fillRect(r[0], r[1], r[2], r[3]));
-        g.fillStyle = INK;
-        k.forEach(r => g.fillRect(r[0], r[1], r[2], r[3]));
+        build(state, frame).forEach((row, y) => row.forEach((c, x) => {
+            if (c) { g.fillStyle = PAL[c]; g.fillRect(x, y, 1, 1); }
+        }));
     }
-
     // ---- speech bubble ----
     function pick() {
         let m;
@@ -136,9 +179,11 @@
 
         if (state !== 'sleep') {
             if (d > GAP) {                                   // glide toward a spot GAP px from the cursor
-                const k = 1 - Math.exp(-dt / 280);
-                const nx = x + (mx - dx / d * GAP - CW / 2 - x) * k;
-                const ny = y + (my - dy / d * GAP - CH / 2 - y) * k;
+                const k = 1 - Math.exp(-dt / 520);             // bigger number = lazier
+                let nx = x + (mx - dx / d * GAP - CW / 2 - x) * k;
+                let ny = y + (my - dy / d * GAP - CH / 2 - y) * k;
+                const step = Math.hypot(nx - x, ny - y), cap = dt * 0.16;   // top speed about 160px/s
+                if (step > cap) { nx = x + (nx - x) * cap / step; ny = y + (ny - y) * cap / step; }
                 moved = Math.hypot(nx - x, ny - y);
                 x = nx; y = ny;
                 clamp();
@@ -158,8 +203,8 @@
         }
 
         ft += dt;
-        const period = state === 'walk' ? 110 : state === 'sit' ? 400 : 1000;
-        if (ft >= period) { ft = 0; frame = (frame + 1) % (state === 'sleep' ? 2 : 4); }
+        const period = state === 'walk' ? 170 : state === 'sit' ? 450 : 1000;
+        if (ft >= period) { ft = 0; frame = (frame + 1) % (state === 'sleep' ? 1 : 4); }
 
         draw();
         apply();

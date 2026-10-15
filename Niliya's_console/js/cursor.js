@@ -106,27 +106,32 @@ document.querySelectorAll('.card').forEach(c => {
         }
     });
 
+    // ---------- Project cards: open the link, or show the maintenance popup ----------
     let cardPop, cardPopT;
-    c.addEventListener('click', e => {
+    document.addEventListener('click', e => {
+        const c = e.target.closest('.card');
+        if (!c) return;
+        e.preventDefault();
+
+        const href = c.getAttribute('href');
+        if (href && !c.hasAttribute('data-offline')) {
+            window.open(href, '_blank', 'noopener');
+            return;
+        }
+
+        // no link, or marked data-offline: show the message
         if (cardPop) cardPop.remove();
         clearTimeout(cardPopT);
-
         const pop = document.createElement('div');
         pop.className = 'card-pop';
         pop.setAttribute('role', 'status');
         pop.textContent = "OOPS! Currently under maintenance Come back in a day or two to explore the awesome & fun projects I’ve built!";
-
         pop.style.left = e.pageX + 'px';
         pop.style.top = e.pageY + 'px';
-
         document.body.appendChild(pop);
-
         cardPop = pop;
         cardPopT = setTimeout(() => {
-            if (cardPop === pop) {
-                pop.remove();
-                cardPop = null;
-            }
+            if (cardPop === pop) { pop.remove(); cardPop = null; }
         }, 3400);
     });
 });

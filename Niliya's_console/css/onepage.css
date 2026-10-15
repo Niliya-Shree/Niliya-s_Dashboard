@@ -1,0 +1,434 @@
+/* wrappers are invisible unless one-page mode is on */
+.page,
+.col {
+    display: contents
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    html,
+    body.one {
+        height: 100%;
+        overflow: hidden
+    }
+
+    body.one .page {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        height: 100vh
+    }
+
+    body.one .col {
+        display: block;
+        min-width: 0;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 70px 20px 16px;
+        scrollbar-width: none;
+        overscroll-behavior: contain
+    }
+
+    body.one .col::-webkit-scrollbar {
+        display: none
+    }
+
+    body.one .col+.col {
+        border-left: 3px dashed color-mix(in srgb, var(--ink) 30%, transparent)
+    }
+
+    body.one .rv {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none
+    }
+
+    body.one section {
+        padding: 0;
+        max-width: none;
+        margin: 0 0 12px
+    }
+
+    body.one h2 {
+        font-size: clamp(18px, 2.8vh, 26px);
+        margin: 0 0 8px;
+        letter-spacing: -.02em
+    }
+
+    /* hero */
+    body.one .hero {
+        display: block;
+        position: relative;
+        min-height: 0;
+        padding: 0 0 4px
+    }
+
+    body.one h1 {
+        font-size: clamp(30px, 5.4vh, 54px);
+        line-height: 1;
+        max-width: 66%
+    }
+
+    body.one .role {
+        font-size: clamp(15px, 2.4vh, 22px);
+        margin: 8px 0 0
+    }
+
+    body.one .lead {
+        font-size: clamp(12px, 1.7vh, 15px);
+        line-height: 1.4;
+        max-width: 64%;
+        margin: 8px 0 12px
+    }
+
+    body.one .btn {
+        padding: 8px 18px;
+        font-size: 14px;
+        box-shadow: 3px 3px 0 var(--ink)
+    }
+
+    body.one .social {
+        margin-top: 12px;
+        gap: 8px
+    }
+
+    body.one .social a {
+        width: 36px;
+        height: 36px
+    }
+
+    body.one .social a svg {
+        width: 17px;
+        height: 17px
+    }
+
+    body.one .me {
+        top: 0;
+        right: 4px;
+        bottom: auto;
+        width: clamp(120px, 21vh, 200px)
+    }
+
+    body.one .me-frame {
+        border-width: 3px;
+        box-shadow: 5px 5px 0 var(--ink)
+    }
+
+    body.one .me-tag {
+        font-size: 12px;
+        padding: 3px 10px
+    }
+
+    body.one .sp {
+        font-size: 22px
+    }
+
+    /* marquee keeps moving by itself (no page scroll now) */
+    body.one .marq {
+        margin: 10px -20px;
+        padding: 6px 0;
+        font-size: clamp(14px, 2.2vh, 20px)
+    }
+
+    body.one .marq div {
+        animation: marqMove 28s linear infinite
+    }
+
+    @keyframes marqMove {
+        to {
+            transform: translateX(-33.333%)
+        }
+    }
+
+    /* experience + tools stacked */
+    body.one .duo {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 0;
+        margin: 0;
+        max-width: none
+    }
+
+    body.one .duo>.tools {
+        position: static
+    }
+
+    body.one .xps {
+        border-width: 2px;
+        border-radius: 16px;
+        box-shadow: 4px 4px 0 var(--ink)
+    }
+
+    body.one .xp-head {
+        padding: 10px 12px;
+        gap: 10px
+    }
+
+    body.one .xp-logo {
+        width: 34px;
+        height: 34px;
+        font-size: 16px;
+        border-width: 2px;
+        border-radius: 10px
+    }
+
+    body.one .xp-top {
+        gap: 8px
+    }
+
+    body.one .xp-co {
+        font-size: 15px;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+    }
+
+    body.one .xp-dots {
+        min-width: 6px
+    }
+
+    body.one .xp-when {
+        font-size: 12px
+    }
+
+    body.one .xp-role {
+        font-size: 13px;
+        margin-top: 2px
+    }
+
+    body.one .pill {
+        font-size: 10px;
+        padding: 1px 8px;
+        margin-left: 6px
+    }
+
+    body.one .xp-sum {
+        font-size: 12px;
+        margin-top: 4px;
+        -webkit-line-clamp: 1
+    }
+
+    body.one .xp-body>div {
+        padding: 0 14px 0 56px
+    }
+
+    body.one .xp.open .xp-body>div {
+        padding-bottom: 12px
+    }
+
+    body.one .xp-body li {
+        font-size: 13px;
+        margin-bottom: 6px
+    }
+
+    body.one .skills {
+        gap: 6px
+    }
+
+    body.one .skills .skill {
+        font-size: 11px;
+        padding: 3px 9px 3px 6px;
+        gap: 5px;
+        border-width: 2px;
+        box-shadow: 1px 1px 0 var(--ink)
+    }
+
+    body.one .skills .skill .ic,
+    body.one .skills .skill .ic img {
+        width: 14px;
+        height: 14px;
+        font-size: 11px
+    }
+
+    /* footer heading + Earth */
+    body.one footer#contact {
+        padding: 6px 0 0;
+        text-align: left
+    }
+
+    body.one footer#contact h2 {
+        margin: 0
+    }
+
+    body.one .earth-wrap {
+        margin: 8px 0 0;
+        padding: 0
+    }
+
+    body.one .earth {
+        height: clamp(240px, 38vh, 360px);
+        border-width: 2px;
+        border-radius: 20px;
+        box-shadow: 4px 4px 0 var(--ink)
+    }
+
+    body.one .earth-top {
+        top: 12px;
+        gap: 8px
+    }
+
+    body.one .earth-pill {
+        font-size: 12px;
+        padding: 5px 12px
+    }
+
+    body.one .earth-btns {
+        gap: 6px
+    }
+
+    body.one .earth-btn {
+        font-size: 10px;
+        padding: 4px 14px 4px 4px;
+        gap: 8px
+    }
+
+    body.one .earth-btn .av {
+        width: 28px;
+        height: 28px
+    }
+
+    body.one .earth-btn .av svg {
+        width: 15px;
+        height: 15px
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* tools sit above the projects in column 2 */
+    body.one .tools {
+        margin-bottom: 12px
+    }
+
+    /* project cards: one row of three small vertical cards */
+    body.one .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px
+    }
+
+    body.one .card {
+        --rot: 0deg !important;
+        min-height: 0;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 8px;
+        border-width: 2px;
+        border-radius: 16px;
+        box-shadow: 3px 3px 0 var(--ink)
+    }
+
+    body.one .card .card-img {
+        flex: none;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        min-height: 0;
+        background: none;
+        border-radius: 10px;
+        overflow: hidden
+    }
+
+    body.one .card .card-img img {
+        display: block;
+        width: 100%;
+        height: clamp(60px, 11vh, 100px);
+        object-fit: cover;
+        border-radius: 10px
+    }
+
+    body.one .card h3 {
+        font-size: 14px;
+        line-height: 1.15;
+        margin: 0 0 3px
+    }
+
+    body.one .card p {
+        font-size: 11px;
+        line-height: 1.3;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden
+    }
+
+    body.one .card .tags {
+        margin-top: 5px;
+        gap: 4px
+    }
+
+    body.one .card .tags i {
+        font-size: 10px !important;
+        padding: 1px 7px !important;
+        border-width: 1.5px !important
+    }
+
+    /* shorter Earth so tools + projects + Earth fit better */
+    body.one .earth {
+        height: clamp(200px, 30vh, 300px)
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* cards show only the picture and the title */
+    body.one .card p,
+    body.one .card .tags {
+        display: none
+    }
+
+    /* freed-up space: let the picture be a bit taller */
+    body.one .card .card-img img {
+        height: clamp(70px, 13vh, 120px)
+    }
+
+    body.one .card h3 {
+        font-size: 15px;
+        margin: 0;
+        text-align: center
+    }
+}
+
+/* when the Toolkit leaves .duo, Experience takes the full width */
+.duo.solo {
+    grid-template-columns: 1fr
+}
+
+/* Toolkit sitting below Contributions */
+.tools.out {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 6vw 30px
+}
+
+.tools.out h2 {
+    font-size: clamp(30px, 4vw, 56px);
+    margin: 0 0 20px
+}
+
+.tools.out .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+    body.one .tools.out {
+        padding: 0;
+        margin: 0 0 12px;
+        max-width: none
+    }
+
+    body.one .tools.out h2 {
+        font-size: clamp(18px, 2.8vh, 26px);
+        margin: 0 0 8px
+    }
+
+    body.one .tools.out .skills {
+        gap: 6px
+    }
+}

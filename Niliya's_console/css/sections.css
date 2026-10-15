@@ -244,149 +244,6 @@
     }
 }
 
-/* ===== Footer ===== */
-footer {
-    text-align: center;
-    padding: 80px 6vw 120px;
-    max-width: 1200px;
-    width: 100%;
-    margin-inline: auto
-}
-
-footer .mail {
-    font-size: clamp(22px, 5vw, 48px);
-    font-weight: 800;
-    color: var(--pink);
-    word-break: break-word
-}
-
-/* ===== Spinning globe + orbit ===== */
-.scene {
-    position: relative;
-    width: 340px;
-    height: 340px;
-    margin: 40px auto 30px;
-    display: grid;
-    place-items: center
-}
-
-.globe {
-    width: 210px;
-    height: 210px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    background: #4cc9f0;
-    border: 4px solid var(--ink);
-    box-shadow: 7px 7px 0 var(--ink)
-}
-
-.globe::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 28%, rgba(255, 255, 255, .55), transparent 38%, rgba(27, 19, 64, .5) 100%)
-}
-
-.land {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 200%;
-    height: 100%;
-    animation: spinMap 16s linear infinite
-}
-
-@keyframes spinMap {
-    to {
-        transform: translateX(-50%)
-    }
-}
-
-.orbit {
-    position: absolute;
-    inset: 0;
-    animation: spin 18s linear infinite
-}
-
-.orbit::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border: 3px dashed var(--ink);
-    border-radius: 50%;
-    opacity: .35
-}
-
-.scene:hover .orbit,
-.scene:hover .sat a {
-    animation-play-state: paused
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg)
-    }
-}
-
-.sat {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 0;
-    height: 0;
-    transform: rotate(var(--a)) translateX(170px)
-}
-
-.sat a {
-    position: absolute;
-    left: 0;
-    top: 0;
-    translate: -50% -50%;
-    rotate: calc(var(--a) * -1);
-    animation: unspin 18s linear infinite;
-    white-space: nowrap;
-    display: block;
-    text-decoration: none;
-    border: 3px solid var(--ink);
-    border-radius: 99px;
-    padding: 8px 16px;
-    font-weight: 800;
-    color: #1b1340;
-    box-shadow: 4px 4px 0 var(--ink);
-    transition: scale .15s
-}
-
-.sat:nth-child(1) a {
-    background: var(--sun)
-}
-
-.sat:nth-child(2) a {
-    background: var(--pink)
-}
-
-.sat:nth-child(3) a {
-    background: var(--lime)
-}
-
-.sat a:hover {
-    scale: 1.2
-}
-
-@keyframes unspin {
-    to {
-        transform: rotate(-360deg)
-    }
-}
-
-@media (max-width:480px) {
-    .scene {
-        transform: scale(.8);
-        margin: 10px auto -10px
-    }
-}
-
 /* orbiting link pills */
 .sat a {
     font-size: 24px;
@@ -503,4 +360,244 @@ footer .mail {
         font-size: 15px;
         padding: 6px 14px 6px 10px
     }
+}
+
+/* project cards as links */
+a.card {
+    text-decoration: none;
+    color: #fff
+}
+
+a.card::after {
+    content: "↗";
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    z-index: 1;
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    background: #fff;
+    color: #1b1340;
+    border: 3px solid #1b1340;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 18px;
+    transition: transform .2s
+}
+
+a.card:hover::after {
+    transform: rotate(45deg) scale(1.1)
+}
+
+/* ---------- ASCII Earth ---------- */
+.earth-wrap {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    padding: 0 6vw
+}
+
+.earth {
+    position: relative;
+    height: 440px;
+    overflow: hidden;
+    border: 3px solid var(--ink);
+    border-radius: 28px;
+    box-shadow: 7px 7px 0 var(--ink);
+    background: linear-gradient(180deg, #1b1340 0%, #4a1f9c 100%);
+    touch-action: pan-y;
+    user-select: none
+}
+
+.earth::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(rgba(255, 255, 255, .09) 1px, transparent 1.6px) 0 0/9px 9px;
+    pointer-events: none
+}
+
+.earth canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block
+}
+
+.earth-top {
+    position: absolute;
+    top: 22px;
+    left: 50%;
+    translate: -50% 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    pointer-events: none
+}
+
+.earth-pill {
+    margin: 0;
+    padding: 7px 18px;
+    border-radius: 99px;
+    background: rgba(0, 0, 0, .5);
+    border: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    white-space: nowrap
+}
+
+.earth-btn {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 26px 8px 8px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, .2);
+    border: 1px solid rgba(255, 255, 255, .45);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    transition: background .2s, transform .2s
+}
+
+.earth-btn:hover {
+    background: rgba(255, 255, 255, .34);
+    transform: translateY(-2px)
+}
+
+.earth-btn .av {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    flex: none;
+    border: 2px solid rgba(255, 255, 255, .7)
+}
+
+.earth-btn .av img {
+    position: absolute;
+    width: 140px;
+    max-width: none;
+    left: -77px;
+    top: -12px
+}
+
+@media (max-width:700px) {
+    .earth {
+        height: 380px
+    }
+
+    .earth-pill {
+        font-size: 13px;
+        white-space: normal;
+        text-align: center
+    }
+}
+
+/* Earth: three link buttons */
+.earth-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px
+}
+
+.earth-btn {
+    gap: 12px;
+    padding: 6px 22px 6px 6px;
+    font-size: 12px;
+    letter-spacing: .2em
+}
+
+.earth-btn .av {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff
+}
+
+.earth-btn .av svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+.earth-btn .av svg.fill {
+    fill: currentColor;
+    stroke: none
+}
+
+@media (max-width:560px) {
+    .earth-btns {
+        gap: 8px
+    }
+
+    .earth-btn {
+        padding: 5px
+    }
+
+    .earth-btn .lbl {
+        display: none
+    }
+}
+
+/* Earth panel: purple instead of blue */
+.earth {
+    background: linear-gradient(180deg, #1b1340 0%, #5a2fc2 100%) !important
+}
+
+.earth-pill {
+    background: rgba(27, 19, 64, .65)
+}
+
+/* heading sits right above the Earth banner */
+footer#contact {
+    padding: 80px 6vw 0;
+    text-align: center
+}
+
+footer#contact h2 {
+    margin: 0 0 10px
+}
+
+.earth-wrap {
+    margin-top: 20px;
+    padding-bottom: 70px
+}
+
+/* remove the arrow badge on project cards */
+a.card::after,
+.card::after {
+    content: none !important;
+    display: none !important
+}
+
+/* project tags: back to the original light pill with dark text */
+.card .tags i {
+    background: rgba(255, 255, 255, .6) !important;
+    color: #1b1340 !important;
+    border: 2px solid #1b1340 !important;
+    border-radius: 99px;
+    padding: 2px 12px;
+    font-size: 14px;
+    font-weight: 800;
+    font-style: normal
 }

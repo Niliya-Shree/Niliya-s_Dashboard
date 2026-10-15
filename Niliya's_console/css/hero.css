@@ -313,11 +313,18 @@ h2 {
 }
 
 /* ---------- Social icon row ---------- */
-.social {
+.hero .social {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 26px
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    padding: 0;
+    width: fit-content;
+    max-width: 100%;
+    align-self: flex-start;
+    inset: auto
 }
 
 .social a {
