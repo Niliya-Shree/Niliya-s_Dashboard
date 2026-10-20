@@ -28,7 +28,7 @@ document.addEventListener('pointerover', e => {
     if (e.target.closest('a,button')) cur.classList.add('big');
     const s = e.target.closest('.skill');
     if (s && !s.contains(e.relatedTarget))
-        beep([...document.querySelectorAll('.skill')].indexOf(s) % 6);
+        keyClick();
 });
 document.addEventListener('pointerout', e => {
     if (e.target.closest('a,button')) cur.classList.remove('big');
@@ -42,9 +42,8 @@ document.addEventListener('click', e => {
     if (!el) return;
 
     // beep() is defined in sound.js (loaded first)
-    beep(el.classList.contains('skill')
-        ? [...document.querySelectorAll('.skill')].indexOf(el)
-        : +el.dataset.s || 3);
+    if (el.classList.contains('skill') || el.classList.contains('xp-head')) keyClick();
+    else beep(+el.dataset.s || 3);
 
     if (el.classList.contains('skill')) el.classList.toggle('on');
 

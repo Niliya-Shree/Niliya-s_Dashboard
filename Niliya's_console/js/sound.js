@@ -92,3 +92,40 @@ function swish({ from = 400, to = 1800, d = .5, v = .12, t = 0 }) {
     src.connect(bp).connect(g).connect(c.destination);
     src.start(now);
 }
+// ---------- Tiny key press ----------
+let lastKey = 0;
+function keyClick(v = Math.random()) {
+    const c = actx();
+    if (!c || !on) return;
+    const now = c.currentTime;
+    if (now - lastKey < .035) return;              // avoids buzzing when you sweep fast
+    lastKey = now;
+
+    // 1) a very short, high "tick"
+    const len = Math.floor(c.sampleRate * .012);
+    const buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 4);
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    const hp = c.createBiquadFilter(), bp = c.createBiquadFilter(), ng = c.createGain();
+    hp.type = 'highpass';
+    hp.frequency.value = 1800;
+    bp.type = 'bandpass';
+    bp.frequency.value = 3800 + v * 1500;
+    bp.Q.value = 1.2;
+    ng.gain.value = .3;
+    src.connect(hp).connect(bp).connect(ng).connect(c.destination);
+    src.start(now);
+
+    // 2) a tiny little "pip" body (small and high, no bass)
+    const o = c.createOscillator(), og = c.createGain();
+    o.type = 'sine';
+    o.frequency.setValueAtTime(1000 + v * 300, now);
+    o.frequency.exponentialRampToValueAtTime(520, now + .012);
+    og.gain.setValueAtTime(.0001, now);
+    og.gain.exponentialRampToValueAtTime(.07, now + .002);
+    og.gain.exponentialRampToValueAtTime(.0001, now + .02);
+    o.connect(og).connect(c.destination);
+    o.start(now);
+    o.stop(now + .03);
+}
