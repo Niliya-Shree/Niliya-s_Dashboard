@@ -142,3 +142,19 @@ meImg.addEventListener('click', e => {
     showPop(popText[kind], e.offsetX + 4, e.offsetY + 4);
     beep(popBeep[kind]);       // beep() is defined in sound.js, loaded first
 });
+
+// keep the social hover previews inside the screen
+document.querySelectorAll('.social a').forEach(a => {
+    const pv = a.querySelector('.pv');
+    if (!pv) return;
+    const fit = () => {
+        pv.style.translate = '0 0';
+        const r = pv.getBoundingClientRect(), m = 8;
+        let dx = 0;
+        if (r.right > innerWidth - m) dx = innerWidth - m - r.right;     // too far right: pull left
+        if (r.left + dx < m) dx = m - r.left;                            // too far left: push right
+        pv.style.translate = dx + 'px 0';
+    };
+    a.addEventListener('pointerenter', fit);
+    a.addEventListener('focusin', fit);
+});
