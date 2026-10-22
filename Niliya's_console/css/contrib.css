@@ -184,3 +184,175 @@
         height: 10px
     }
 }
+
+/* ---------- scrollable heatmap: about 6 months visible ---------- */
+.gh-scroll {
+    container-type: inline-size;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 4px 2px 8px;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--ink) 35%, transparent) transparent;
+    cursor: grab
+}
+
+.gh-scroll.drag {
+    cursor: grabbing;
+    user-select: none
+}
+
+.gh-inner {
+    --g: 3px;
+    --cell: 14px;
+    width: max-content
+}
+
+.gh-grid {
+    grid-auto-columns: var(--cell);
+    gap: var(--g)
+}
+
+.gh-grid i:hover {
+    transform: scale(1.4)
+}
+
+@supports (width:1cqw) {
+    .gh-inner {
+        --cell: calc((100cqw - 25 * var(--g)) / 26)
+    }
+
+    /* 26 weeks = about 6 months fill the card */
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+    body.one .gh-inner {
+        --g: 2px
+    }
+}
+
+/* hide the scrollbar but keep scrolling (swipe, drag, Shift + wheel) */
+.gh-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px
+}
+
+.gh-scroll::-webkit-scrollbar {
+    display: none
+}
+
+/* shorter heatmap: wide, low cells instead of tall squares */
+.gh-inner {
+    --row: 11px
+}
+
+.gh-grid {
+    grid-auto-rows: var(--row)
+}
+
+.gh-grid i {
+    aspect-ratio: auto;
+    height: var(--row);
+    border-radius: 3px
+}
+
+.gh-grid i:hover {
+    transform: scale(1.25)
+}
+
+/* tighter card */
+.gh {
+    padding: 12px 14px 10px
+}
+
+.gh-months {
+    height: 14px;
+    margin-bottom: 4px;
+    font-size: 11px
+}
+
+.gh-foot {
+    margin-top: 8px;
+    font-size: 12px
+}
+
+.gh-legend i {
+    width: 10px;
+    height: 10px
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* Contributions heading: one 8px gap, same as the Projects heading */
+    body.one .col3 .contrib-head {
+        margin: 0 0 8px;
+        align-items: center
+    }
+
+    body.one .col3 .contrib-head h2 {
+        margin: 0;
+        line-height: 1.2
+    }
+}
+
+/* ---------- square cells: 6 months on narrow cards, the whole year on wide ones ---------- */
+.gh-inner {
+    --weeks: 26;
+    --g: 2px;
+    --cell: calc((100cqw - (var(--weeks) - 1) * var(--g)) / var(--weeks))
+}
+
+@container (min-width:480px) {
+    .gh-inner {
+        --weeks: 53
+    }
+}
+
+.gh-grid {
+    grid-template-rows: repeat(7, var(--cell));
+    grid-auto-columns: var(--cell);
+    gap: var(--g)
+}
+
+.gh-grid i {
+    height: var(--cell);
+    aspect-ratio: auto;
+    border-radius: 2px
+}
+
+.gh-grid i:hover {
+    transform: scale(1.5)
+}
+
+/* ---------- medium screens (601px to 1099px): about 7 months, big square cells ---------- */
+@media (min-width:601px) and (max-width:1099px) {
+    .gh .gh-inner {
+        --weeks: 30;
+        --g: 3px
+    }
+
+    /* 30 weeks = about 7 months across the whole card */
+    .gh {
+        padding: 18px 20px 14px
+    }
+
+    .gh-months {
+        height: 18px;
+        font-size: 12px;
+        margin-bottom: 6px
+    }
+
+    .gh-grid i {
+        border-radius: 3px
+    }
+
+    .gh-foot {
+        margin-top: 12px;
+        font-size: 13px
+    }
+
+    .gh-legend i {
+        width: 12px;
+        height: 12px
+    }
+}

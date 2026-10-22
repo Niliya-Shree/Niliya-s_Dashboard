@@ -67,11 +67,18 @@ function showPop(text, x, y) {
     mePop.className = 'me-pop';
     mePop.setAttribute('role', 'status');
     mePop.textContent = text;
-    me.appendChild(mePop);
-    mePop.style.left = Math.max(115, Math.min(me.clientWidth - 115, x)) + 'px';
+    document.body.appendChild(mePop);
+    mePop.style.left = Math.max(120, Math.min(window.innerWidth - 120, x)) + 'px';
     mePop.style.top = Math.max(70, y) + 'px';
-    popT = setTimeout(() => { mePop.remove(); mePop = null; }, 3200);
+    popT = setTimeout(() => { if (mePop) { mePop.remove(); mePop = null; } }, 3200);
 }
+
+window.addEventListener('scroll', () => {
+    if (mePop) {
+        mePop.remove();
+        mePop = null;
+    }
+}, { passive: true, capture: true });
 
 const inFace = (x, y) => ((x - 1040) / 120) ** 2 + ((y - 355) / 170) ** 2 < 1;
 
@@ -139,22 +146,47 @@ meImg.addEventListener('click', e => {
     const ix = (e.offsetX - (w - nw * s) * .9) / s;
     const iy = (e.offsetY - (h - nh * s)) / s;
     const kind = classify(ix, iy);
-    showPop(popText[kind], e.offsetX + 4, e.offsetY + 4);
+    showPop(popText[kind], e.clientX, e.clientY);
     beep(popBeep[kind]);       // beep() is defined in sound.js, loaded first
 });
 
-// keep the social hover previews inside the screen
-document.querySelectorAll('.social a').forEach(a => {
-    const pv = a.querySelector('.pv');
-    if (!pv) return;
-    const fit = () => {
-        pv.style.translate = '0 0';
-        const r = pv.getBoundingClientRect(), m = 8;
-        let dx = 0;
-        if (r.right > innerWidth - m) dx = innerWidth - m - r.right;     // too far right: pull left
-        if (r.left + dx < m) dx = m - r.left;                            // too far left: push right
-        pv.style.translate = dx + 'px 0';
-    };
-    a.addEventListener('pointerenter', fit);
-    a.addEventListener('focusin', fit);
-});
+// social hover previews: moved into <body> so no column or transform can shift or clip them
+(() => {
+    let openPv = null, hideT = 0;
+    const hide = () => { if (openPv) { openPv.classList.remove('show'); openPv = null; } };
+
+    document.querySelectorAll('.social a').forEach((a, i) => {
+        const pv = a.querySelector('.pv');
+        if (!pv) return;
+        pv.dataset.for = i;
+        document.body.appendChild(pv);                     // out of the icon, out of the column
+
+        const place = () => {
+            clearTimeout(hideT);
+            if (openPv && openPv !== pv) openPv.classList.remove('show');
+            openPv = pv;
+            const ar = a.getBoundingClientRect(), m = 8;
+            pv.style.left = '0px';
+            pv.style.top = ar.bottom + 'px';
+            const w = pv.offsetWidth, h = pv.offsetHeight;
+            pv.style.left = Math.max(m, Math.min(ar.left, innerWidth - m - w)) + 'px';
+            pv.style.top = Math.max(m, Math.min(ar.bottom, innerHeight - m - h)) + 'px';
+            pv.classList.add('show');
+        };
+        const later = () => { hideT = setTimeout(hide, 120); };
+
+        a.addEventListener('pointerenter', place);
+        a.addEventListener('focusin', place);
+        a.addEventListener('pointerleave', later);
+        a.addEventListener('focusout', later);
+        pv.addEventListener('pointerenter', () => clearTimeout(hideT));   // let the mouse move onto the card
+        pv.addEventListener('pointerleave', later);
+        pv.addEventListener('click', () => {                              // the card opens the same link
+            if (a.target === '_blank') window.open(a.href, '_blank', 'noopener');
+            else location.href = a.href;
+        });
+    });
+
+    addEventListener('scroll', hide, { passive: true, capture: true });   // also catches column scrolling
+    addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+})();

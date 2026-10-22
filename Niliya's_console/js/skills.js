@@ -14,7 +14,6 @@ const tools = [
     ['TypeScript', 'typescript/typescript-original', '🔷'],
     ['Node.js', 'nodejs/nodejs-original', '🟢'],
     ['Next.js', 'nextjs/nextjs-original', '▲'],
-    ['Redux', 'redux/redux-original', '🔁'],
     ['LLM Evaluation', '', '🧪'],
     ['RAG', '', '📚'],
     ['Cloudflare', 'cloudflare/cloudflare-original', '🛡️'],
@@ -26,11 +25,10 @@ const tools = [
     ['MongoDB', 'mongodb/mongodb-original', '🍃'],
     ['Google Analytics', '', '📊'],
     ['Git', 'git/git-original', '🌿'],
-    ['GitHub', 'github/github-original', '🐙'],
     ['GitHub Actions', 'githubactions/githubactions-original', '⚙️'],
-    ['Vercel', 'vercel/vercel-original', '▲'],
+    // ['Vercel', 'vercel/vercel-original', '▲'],
     ['GCP', 'googlecloud/googlecloud-original', '☁️'],
-    ['Hetzner VPS', '', '🖥️'],
+    // ['Hetzner VPS', '', '🖥️'],
 ];
 
 tools.forEach(([name, icon, emoji], i) => {

@@ -1,7 +1,7 @@
 (() => {
     const USER = 'Niliya-Shree';
     const grid = document.getElementById('ghGrid');
-    if (!grid) return;
+    const sc = document.getElementById('ghScroll');
     const months = document.getElementById('ghMonths'), total = document.getElementById('ghTotal');
     const MN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -37,6 +37,7 @@
             }
         });
         total.textContent = sum.toLocaleString() + ' contributions in the last year';
+        if (sc) sc.scrollLeft = sc.scrollWidth;               // start at the most recent weeks
     }
 
     function empty(msg) {                                   // empty grid, no fake numbers
@@ -56,4 +57,12 @@
             render(days, sum);
         })
         .catch(() => empty("Couldn't load contributions right now"));
+    // drag to scroll
+    if (sc) {
+        let down = false, sx = 0, sl = 0;
+        sc.addEventListener('pointerdown', e => { down = true; sx = e.clientX; sl = sc.scrollLeft; sc.classList.add('drag'); });
+        addEventListener('pointermove', e => { if (down) sc.scrollLeft = sl - (e.clientX - sx); });
+        addEventListener('pointerup', () => { down = false; sc.classList.remove('drag'); });
+    }
+    addEventListener('resize', () => { if (sc) sc.scrollLeft = sc.scrollWidth; });
 })();

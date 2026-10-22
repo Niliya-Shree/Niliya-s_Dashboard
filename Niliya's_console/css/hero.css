@@ -252,8 +252,8 @@ h2 {
 
 /* ===== Portrait click-pop tooltip ===== */
 .me-pop {
-    position: absolute;
-    z-index: 5;
+    position: fixed;
+    z-index: 9999;
     width: max-content;
     max-width: 230px;
     translate: -50% -120%;
@@ -394,14 +394,6 @@ h2 {
     text-align: left;
     font: 700 14px/1.35 'Bricolage Grotesque', system-ui, sans-serif;
     color: var(--ink)
-}
-
-.social a:hover .pv,
-.social a:focus-visible .pv {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    pointer-events: auto
 }
 
 .pv-card {
@@ -577,6 +569,24 @@ h2 {
     height: auto
 }
 
-.social a:nth-child(4) .pv-shot {
+/* social previews live in <body> (moved there by hero.js) */
+.pv {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 95;
+    cursor: none
+}
+
+.pv.show {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto
+}
+
+.pv[data-for="3"] .pv-shot {
     width: 260px
 }
+
+/* Instagram card, the 4th icon */

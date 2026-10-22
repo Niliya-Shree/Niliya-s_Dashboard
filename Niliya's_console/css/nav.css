@@ -136,8 +136,7 @@ nav b {
     background: #d9d4e8
 }
 
-@media (hover:none),
-(max-width:599px) {
+@media (hover:none) {
     #catBtn {
         display: none
     }

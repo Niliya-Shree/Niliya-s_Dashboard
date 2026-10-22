@@ -1,0 +1,207 @@
+@media (max-width:900px) {
+    html {
+        -webkit-text-size-adjust: 100%
+    }
+
+    html,
+    body {
+        overflow-x: clip;
+        max-width: 100%
+    }
+
+    .hero,
+    .page,
+    .col {
+        max-width: 100vw
+    }
+
+    body {
+        cursor: auto
+    }
+
+    img {
+        max-width: 100%
+    }
+
+    section {
+        padding: 64px 5vw 28px
+    }
+
+    h2 {
+        font-size: 30px;
+        margin: 0 0 18px
+    }
+
+    /* top bar */
+    nav {
+        padding: 10px 14px;
+        background: linear-gradient(var(--bg) 55%, transparent)
+    }
+
+    .icon-btn {
+        width: 40px;
+        height: 40px
+    }
+
+    .icon-btn svg {
+        width: 20px;
+        height: 20px
+    }
+
+    /* hero: portrait moves into the flow, below the content */
+    .hero {
+        min-height: 0;
+        justify-content: flex-start;
+        padding: 96px 5vw 20px
+    }
+
+    h1 {
+        font-size: clamp(40px, 13vw, 72px)
+    }
+
+    .role {
+        font-size: clamp(20px, 6vw, 30px);
+        margin-top: 16px
+    }
+
+    .lead {
+        max-width: none;
+        font-size: 17px;
+        margin: 14px 0 22px
+    }
+
+    .hero .social {
+        margin-top: 18px;
+        gap: 10px
+    }
+
+    .social a {
+        width: 42px;
+        height: 42px
+    }
+
+    .me {
+        position: relative;
+        order: 10;
+        align-self: center;
+        right: auto;
+        bottom: auto;
+        width: min(72vw, 320px);
+        margin: 28px auto 6px;
+        opacity: 1;
+        translate: none !important
+    }
+
+    .me-tag {
+        display: block;
+        font-size: 13px;
+        padding: 4px 12px
+    }
+
+    /* strip */
+    .marq {
+        margin: 14px 0;
+        padding: 10px 0;
+        font-size: 20px;
+        transform: rotate(-1.5deg) scale(1.04)
+    }
+
+    /* experience and toolkit */
+    .duo {
+        padding: 24px 5vw 0;
+        gap: 36px
+    }
+
+    .xp-head {
+        padding: 14px;
+        gap: 12px;
+        position: relative
+    }
+
+    .xp-top {
+        flex-wrap: wrap;
+        gap: 2px 10px;
+        padding-right: 26px
+    }
+
+    .xp-dots {
+        display: none
+    }
+
+    .xp-co {
+        font-size: 17px
+    }
+
+    .xp-chev {
+        position: absolute;
+        right: 16px;
+        top: 24px
+    }
+
+    .xp-body>div {
+        padding: 0 14px
+    }
+
+    .xp.open .xp-body>div {
+        padding-bottom: 18px
+    }
+
+    .skills {
+        gap: 8px
+    }
+
+    .skills .skill {
+        font-size: 14px;
+        padding: 5px 12px 5px 8px
+    }
+
+    /* projects: one column, no tilt */
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 20px
+    }
+
+    .card {
+        --rot: 0deg !important;
+        min-height: 0
+    }
+
+    .card .card-img img {
+        width: 100%;
+        height: auto;
+        max-height: 220px;
+        object-fit: cover
+    }
+
+    /* contributions and toolkit (moved below it on small screens) */
+    .contrib {
+        padding: 24px 5vw 10px
+    }
+
+    .tools.out {
+        padding: 10px 5vw 24px
+    }
+
+    .tools.out h2 {
+        font-size: 30px;
+        margin: 0 0 14px
+    }
+
+    .tools.out .skills {
+        gap: 8px
+    }
+
+    /* footer and Earth */
+    footer#contact {
+        padding: 36px 5vw 0
+    }
+
+    .earth-wrap {
+        margin-top: 12px;
+        padding: 0 5vw 40px
+    }
+
+    .earth {
+        height: 340px
+    }
+}

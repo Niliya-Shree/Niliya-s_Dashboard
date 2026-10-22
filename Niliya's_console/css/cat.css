@@ -120,12 +120,6 @@
     }
 }
 
-@media (max-width:599px) {
-    #cat {
-        display: none
-    }
-}
-
 @media (prefers-reduced-motion:reduce) {
     .cat-bubble {
         transition: none

@@ -36,6 +36,12 @@
         border-left: 3px dashed color-mix(in srgb, var(--ink) 30%, transparent)
     }
 
+    /* col1 must stack ABOVE col2/col3 so hover previews (Medium card)
+       that extend past the column boundary overlap, not go behind */
+    body.one .col1 {
+        z-index: 2
+    }
+
     body.one .rv {
         opacity: 1 !important;
         transform: none !important;
@@ -430,5 +436,195 @@
 
     body.one .tools.out .skills {
         gap: 6px
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* column 3 becomes a stack: the Earth fills the leftover height */
+    body.one .col3 {
+        display: flex;
+        flex-direction: column
+    }
+
+    body.one .col3>* {
+        flex: none
+    }
+
+    body.one .col3>.earth-wrap {
+        flex: 1 1 auto;
+        min-height: 190px;
+        margin: 8px 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column
+    }
+
+    body.one .col3 .earth {
+        flex: 1 1 auto;
+        height: auto;
+        min-height: 0
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* columns follow the real visible height, and keep a little space at the bottom */
+    body.one .col {
+        height: 100dvh
+    }
+
+    body.one .col3 {
+        padding-bottom: 48px
+    }
+
+    /* smaller headings in column 3 */
+    body.one .col3 h2 {
+        font-size: 16px;
+        margin: 0 0 6px
+    }
+
+    body.one .col3 footer#contact {
+        padding: 0
+    }
+
+    /* Contributions: slimmer */
+    body.one .col3 .contrib {
+        margin-bottom: 8px
+    }
+
+    body.one .gh {
+        padding: 8px 10px 6px
+    }
+
+    body.one .gh-inner {
+        --row: 8px
+    }
+
+    body.one .gh-months {
+        height: 12px;
+        font-size: 10px
+    }
+
+    body.one .gh-foot {
+        margin-top: 6px;
+        font-size: 11px
+    }
+
+    /* Toolkit under Contributions: tiny chips */
+    body.one .col3 .tools.out {
+        margin-bottom: 8px
+    }
+
+    body.one .col3 .skills {
+        gap: 4px
+    }
+
+    body.one .col3 .skills .skill {
+        font-size: 10px;
+        padding: 2px 7px 2px 5px;
+        gap: 4px;
+        border-width: 1.5px;
+        box-shadow: 1px 1px 0 var(--ink)
+    }
+
+    body.one .col3 .skills .skill .ic,
+    body.one .col3 .skills .skill .ic img {
+        width: 12px;
+        height: 12px;
+        font-size: 10px
+    }
+
+    /* Earth: smaller minimum, icon-only buttons in one row */
+    body.one .col3>.earth-wrap {
+        min-height: 130px;
+        margin-top: 4px
+    }
+
+    body.one .earth-top {
+        top: 8px
+    }
+
+    body.one .earth-btns {
+        flex-wrap: nowrap;
+        gap: 6px
+    }
+
+    body.one .earth-btn {
+        padding: 4px
+    }
+
+    body.one .earth-btn .lbl {
+        display: none
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* Earth: fixed height, no longer fills the leftover space */
+    body.one .col3>.earth-wrap {
+        flex: none;
+        min-height: 0;
+        margin: 8px 0 0
+    }
+
+    body.one .col3 .earth {
+        flex: none;
+        height: clamp(210px, 40vh, 300px)
+    }
+
+    /* Toolkit: roomier chips again */
+    body.one .col3 .skills {
+        gap: 6px
+    }
+
+    body.one .col3 .skills .skill {
+        font-size: 11.5px;
+        padding: 4px 10px 4px 7px;
+        gap: 5px;
+        border-width: 2px;
+        box-shadow: 2px 2px 0 var(--ink)
+    }
+
+    body.one .col3 .skills .skill .ic,
+    body.one .col3 .skills .skill .ic img {
+        width: 14px;
+        height: 14px;
+        font-size: 11px
+    }
+
+    body.one .col3 .tools.out {
+        margin-bottom: 12px
+    }
+}
+
+@media (min-width:1100px) and (min-height:600px) {
+
+    /* Earth: fits the leftover height, never grows past 240px, never gets cut off */
+    body.one .col3 {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 56px;
+        overflow-y: hidden
+    }
+
+    body.one .col3>* {
+        flex: none
+    }
+
+    body.one .col3>.earth-wrap {
+        flex: 1 1 0;
+        min-height: 0;
+        max-height: 240px;
+        margin: 8px 0 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column
+    }
+
+    body.one .col3 .earth {
+        flex: 1 1 0;
+        min-height: 0;
+        height: auto
     }
 }
