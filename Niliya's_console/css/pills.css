@@ -60,3 +60,61 @@
         0 10px 22px rgba(0, 0, 0, .45),
         0 2px 4px rgba(0, 0, 0, .3) !important;
 }
+
+/* ---------- 3D raised pills (same size, deeper shadows) ---------- */
+.skills .skill {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f7f5 50%, #ededeb 100%) !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .85),
+        /* fine bright rim */
+        inset 0 2px 2px rgba(255, 255, 255, 1),
+        /* glossy top highlight */
+        inset 0 -4px 6px rgba(70, 60, 120, .10),
+        /* rounded underside */
+        0 1px 1px rgba(70, 60, 120, .12),
+        /* contact edge */
+        0 5px 8px rgba(70, 60, 120, .14),
+        /* near shadow */
+        0 12px 22px rgba(70, 60, 120, .16),
+        /* soft cast shadow */
+        0 0 14px rgba(70, 60, 120, .07) !important;
+    /* glow around the edges */
+}
+
+.skills .skill:hover {
+    transform: translateY(-2px) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f9f9f7 50%, #f0f0ee 100%) !important;
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .9),
+        inset 0 2px 2px #fff,
+        inset 0 -4px 6px rgba(70, 60, 120, .09),
+        0 1px 1px rgba(70, 60, 120, .12),
+        0 8px 12px rgba(70, 60, 120, .15),
+        0 18px 30px rgba(70, 60, 120, .18),
+        0 0 16px rgba(70, 60, 120, .08) !important;
+}
+
+.skills .skill.on {
+    transform: translateY(1px) !important;
+    background: linear-gradient(180deg, #e9e9e7 0%, #f4f4f2 100%) !important;
+    box-shadow:
+        inset 0 3px 6px rgba(70, 60, 120, .22),
+        inset 0 -1px 0 rgba(255, 255, 255, .9),
+        0 1px 1px rgba(255, 255, 255, .8) !important;
+}
+
+/* a little more room between rows so each pill's shadow can show (pill size is unchanged) */
+.skills {
+    row-gap: 10px !important
+}
+
+/* dark theme: pills stay light, shadows go deeper */
+[data-theme="dark"] .skills .skill {
+    box-shadow:
+        inset 0 0 0 1px rgba(255, 255, 255, .85),
+        inset 0 2px 2px #fff,
+        inset 0 -4px 6px rgba(0, 0, 0, .10),
+        0 1px 1px rgba(0, 0, 0, .4),
+        0 6px 10px rgba(0, 0, 0, .35),
+        0 14px 24px rgba(0, 0, 0, .4) !important;
+}
