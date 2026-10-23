@@ -601,3 +601,36 @@ a.card::after,
     font-weight: 800;
     font-style: normal
 }
+
+/* Earth: link buttons pinned right, stacked vertically, centred in the panel */
+.earth-top,
+body.one .earth-top {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    right: 14px !important;
+    translate: none !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: flex-end !important;
+}
+
+.earth-btns,
+body.one .earth-btns {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 10px !important;
+}
+
+.earth-btn,
+body.one .earth-btn {
+    padding: 5px !important;
+}
+
+.earth-btn .lbl,
+body.one .earth-btn .lbl {
+    display: none !important;
+}

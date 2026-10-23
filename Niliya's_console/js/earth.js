@@ -40,12 +40,10 @@
         if (!W || !H) return;
         cv.width = W * d; cv.height = H * d;
         g.setTransform(d, 0, 0, d, 0, 0);
-        const top = 50;                                   // space taken by the buttons
-        // R = Math.min(W * .4, (H - top) * .46);
-        // CELL = Math.max(3.5, Math.min(9, R / 26));
-        R = Math.min(W * .44, (H - top) * .5);
-        CELL = Math.max(5.5, Math.min(10, R / 13));
-        cx = W / 2; cy = top + (H - top) / 2;             // centred in the space under the buttons
+        const pad = 4;                                    // small gap so the edge dots aren't clipped by the border
+        R = Math.min(W / 2, H / 2) - pad;                 // full height of the section
+        CELL = Math.max(4.5, Math.min(10, R / 13));
+        cx = W / 2; cy = H / 2;                           // centred in the whole panel             // centred in the space under the buttons
         draw(performance.now(), true);
     }
 
