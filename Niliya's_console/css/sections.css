@@ -602,7 +602,14 @@ a.card::after,
     font-style: normal
 }
 
-/* Earth: link buttons pinned right, stacked vertically, centred in the panel */
+/* ===== Earth link buttons: final version ===== */
+
+/* panel reports its own height so buttons can shrink to fit */
+.earth {
+    container-type: size;
+}
+
+/* column pinned right, centred vertically */
 .earth-top,
 body.one .earth-top {
     position: absolute !important;
@@ -622,58 +629,32 @@ body.one .earth-top {
 body.one .earth-btns {
     flex-direction: column !important;
     flex-wrap: nowrap !important;
-    gap: 10px !important;
-}
-
-.earth-btn,
-body.one .earth-btn {
-    padding: 5px !important;
-}
-
-.earth-btn .lbl,
-body.one .earth-btn .lbl {
-    display: none !important;
-}
-
-/* let the panel report its own height to the buttons */
-.earth {
-    container-type: size;
-}
-
-/* column pinned right, centred vertically in the panel */
-.earth-top,
-body.one .earth-top {
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    left: auto !important;
-    right: 14px !important;
-    translate: none !important;
-    transform: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-}
-
-.earth-btns,
-body.one .earth-btns {
-    flex-direction: column !important;
-    flex-wrap: nowrap !important;
+    align-items: flex-end !important;
     gap: 6px !important;
 }
 
+/* pill: icon on the left, label on the right */
 .earth-btn,
 body.one .earth-btn {
+    flex-direction: row !important;
+    gap: 0 !important;
     padding: 0 !important;
+    overflow: hidden;
+    transition: background .5s ease, box-shadow .5s ease,
+        transform .5s cubic-bezier(.34, 1.56, .64, 1) !important;
 }
 
-.earth-btn .lbl,
-body.one .earth-btn .lbl {
-    display: none !important;
+.earth-btn:hover,
+.earth-btn:focus-visible,
+body.one .earth-btn:hover,
+body.one .earth-btn:focus-visible {
+    background: rgba(255, 255, 255, .3) !important;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .35),
+        0 6px 22px rgba(255, 79, 163, .35);
+    transform: translateX(-2px);
 }
 
-/* circle size = what fits in the panel height, between 22px and 38px */
+/* icon circle shrinks to fit the panel height (22px to 38px) */
 .earth-btn .av,
 body.one .earth-btn .av {
     width: clamp(22px, calc((100cqh - 28px) / 3), 38px) !important;
@@ -684,4 +665,63 @@ body.one .earth-btn .av {
 body.one .earth-btn .av svg {
     width: 52% !important;
     height: 52% !important;
+    transition: transform .6s cubic-bezier(.34, 1.56, .64, 1);
+}
+
+.earth-btn:hover .av svg,
+body.one .earth-btn:hover .av svg {
+    transform: rotate(-12deg) scale(1.12);
+}
+
+/* label: collapsed */
+.earth-btn .lbl,
+body.one .earth-btn .lbl {
+    display: block !important;
+    max-width: 0;
+    opacity: 0;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 11px;
+    letter-spacing: .4em;
+    text-indent: -16px;
+    filter: blur(3px);
+    transition:
+        max-width .45s cubic-bezier(.65, 0, .35, 1) .05s,
+        padding .45s cubic-bezier(.65, 0, .35, 1) .05s,
+        opacity .25s ease,
+        letter-spacing .45s ease,
+        text-indent .45s ease,
+        filter .3s ease;
+}
+
+/* label: open */
+.earth-btn:hover .lbl,
+.earth-btn:focus-visible .lbl,
+body.one .earth-btn:hover .lbl,
+body.one .earth-btn:focus-visible .lbl {
+    max-width: 9.5em;
+    padding: 0 18px 0 8px;
+    opacity: 1;
+    letter-spacing: .18em;
+    text-indent: 0;
+    filter: blur(0);
+    transition:
+        max-width .65s cubic-bezier(.34, 1.25, .64, 1),
+        padding .65s cubic-bezier(.34, 1.25, .64, 1),
+        opacity .4s ease .15s,
+        letter-spacing .7s cubic-bezier(.22, 1, .36, 1) .1s,
+        text-indent .7s cubic-bezier(.22, 1, .36, 1) .1s,
+        filter .5s ease .12s;
+}
+
+/* respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+
+    .earth-btn,
+    .earth-btn .lbl,
+    .earth-btn .av svg {
+        transition-duration: .01s !important;
+        transition-delay: 0s !important;
+    }
 }
