@@ -634,3 +634,54 @@ body.one .earth-btn {
 body.one .earth-btn .lbl {
     display: none !important;
 }
+
+/* let the panel report its own height to the buttons */
+.earth {
+    container-type: size;
+}
+
+/* column pinned right, centred vertically in the panel */
+.earth-top,
+body.one .earth-top {
+    position: absolute !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    right: 14px !important;
+    translate: none !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.earth-btns,
+body.one .earth-btns {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+}
+
+.earth-btn,
+body.one .earth-btn {
+    padding: 0 !important;
+}
+
+.earth-btn .lbl,
+body.one .earth-btn .lbl {
+    display: none !important;
+}
+
+/* circle size = what fits in the panel height, between 22px and 38px */
+.earth-btn .av,
+body.one .earth-btn .av {
+    width: clamp(22px, calc((100cqh - 28px) / 3), 38px) !important;
+    height: clamp(22px, calc((100cqh - 28px) / 3), 38px) !important;
+}
+
+.earth-btn .av svg,
+body.one .earth-btn .av svg {
+    width: 52% !important;
+    height: 52% !important;
+}
