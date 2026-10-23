@@ -197,11 +197,23 @@ document.querySelectorAll('.card').forEach(c => {
         raf = requestAnimationFrame(frame);
     }
 
-    function set(v) {
-        on = v;
+    // three modes: arrow -> blob -> snake -> arrow
+    let mode = 'arrow';
+    const labels = {
+        arrow: 'Switch to circle cursor',
+        blob: 'Switch to snake cursor',
+        snake: 'Switch to arrow cursor'
+    };
+    const next = { arrow: 'blob', blob: 'snake', snake: 'arrow' };
+
+    function setMode(m) {
+        mode = m;
+        on = m === 'snake';
         document.body.classList.toggle('snake', on);
-        btn.setAttribute('aria-pressed', on);
-        btn.setAttribute('aria-label', on ? 'Switch to circle cursor' : 'Switch to snake cursor');
+        document.body.classList.toggle('arrow', m === 'arrow');
+        btn.setAttribute('aria-pressed', m !== 'blob');
+        btn.setAttribute('aria-label', labels[m]);
+        btn.dataset.mode = m;
         cancelAnimationFrame(raf);
         if (on) {
             size();
@@ -209,11 +221,15 @@ document.querySelectorAll('.card').forEach(c => {
             trail.length = 0;
             frame();
         }
-        try { localStorage.setItem('cursorMode', on ? 'snake' : 'blob'); } catch (e) { }
+        try { localStorage.setItem('cursorMode', m); } catch (e) { }
     }
 
-    btn.addEventListener('click', () => set(!on));
-    let saved;
-    try { saved = localStorage.getItem('cursorMode'); } catch (e) { }
-    if (saved === 'snake' && matchMedia('(hover:hover)').matches) set(true);
+    btn.addEventListener('click', () => setMode(next[mode]));
+
+    // start on the arrow, or on whatever the visitor picked last time
+    if (matchMedia('(hover:hover)').matches) {
+        let saved;
+        try { saved = localStorage.getItem('cursorMode'); } catch (e) { }
+        setMode(saved === 'blob' || saved === 'snake' || saved === 'arrow' ? saved : 'arrow');
+    }
 })();

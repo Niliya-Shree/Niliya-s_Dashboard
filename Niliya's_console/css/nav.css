@@ -145,3 +145,9 @@ nav b {
 .icon-btn[hidden] {
     display: none
 }
+
+/* cursor button: a colour per mode */
+.icon-btn#curBtn[data-mode="arrow"] {
+    background: #fff;
+    color: #1b1340
+}
