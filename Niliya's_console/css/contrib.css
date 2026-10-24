@@ -356,3 +356,85 @@
         height: 12px
     }
 }
+
+/* Contributions card: no border, no thick offset shadow */
+.gh,
+body.one .gh {
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Contributions: light grey card, white squares */
+.gh,
+body.one .gh {
+    background: #ebebef !important;
+    --l0: #ffffff;
+}
+
+/* Contributions: pastel pink card, white squares, pastel blue activity */
+.gh,
+body.one .gh {
+    /* background: #ffd9ec !important; */
+    background: #f5f1dc !important;
+    --l0: #ffffff;
+    --l1: #d4ebff;
+    --l2: #a9d6ff;
+    --l3: #6db8f5;
+    --l4: #3a8fdc;
+}
+
+/* dark theme: dark card, slightly lighter squares */
+[data-theme="dark"] .gh,
+[data-theme="dark"] body.one .gh {
+    background: #2b2160 !important;
+    --l0: #3b2f80;
+    --l1: #3d5a9c;
+    --l2: #4f7fd0;
+    --l3: #6aa5f0;
+    --l4: #9cc9ff;
+}
+
+/* Contributions card: soft raised shadow */
+.gh,
+body.one .gh {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .85),
+        0 1px 2px rgba(70, 60, 120, .10),
+        0 4px 10px rgba(70, 60, 120, .10),
+        0 10px 24px rgba(70, 60, 120, .12),
+        0 0 14px rgba(70, 60, 120, .06) !important;
+}
+
+/* dark theme: deeper shadow */
+[data-theme="dark"] .gh,
+[data-theme="dark"] body.one .gh {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .08),
+        0 4px 12px rgba(0, 0, 0, .35),
+        0 12px 28px rgba(0, 0, 0, .4) !important;
+}
+
+/* Contributions card: shadow only inside the card, nothing on the background */
+.gh,
+body.one .gh {
+    box-shadow:
+        inset 0 2px 3px rgba(255, 255, 255, .75),
+        /* light rim along the top */
+        inset 0 -3px 8px rgba(120, 60, 100, .14),
+        /* soft shade along the bottom */
+        inset 3px 0 8px rgba(120, 60, 100, .07),
+        /* soft shade, left edge */
+        inset -3px 0 8px rgba(120, 60, 100, .07),
+        /* soft shade, right edge */
+        inset 0 0 22px rgba(120, 60, 100, .08) !important;
+    /* gentle all-round depth */
+}
+
+/* dark theme */
+[data-theme="dark"] .gh,
+[data-theme="dark"] body.one .gh {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .10),
+        inset 0 -4px 10px rgba(0, 0, 0, .35),
+        inset 0 0 24px rgba(0, 0, 0, .22) !important;
+}
