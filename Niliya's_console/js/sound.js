@@ -129,3 +129,29 @@ function keyClick(v = Math.random()) {
     o.start(now);
     o.stop(now + .03);
 }
+
+// ---------- Light key touch (hover): barely there ----------
+let lastTouch = 0;
+function keyTouch() {
+    const c = actx();
+    if (!c || !on) return;
+    const now = c.currentTime;
+    if (now - lastTouch < .06) return;             // sweeping across pills won't buzz
+    lastTouch = now;
+
+    // a tiny, soft, high tick
+    const len = Math.floor(c.sampleRate * .006);
+    const buf = c.createBuffer(1, len, c.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3);
+    const src = c.createBufferSource();
+    src.buffer = buf;
+    const hp = c.createBiquadFilter(), bp = c.createBiquadFilter(), g = c.createGain();
+    hp.type = 'highpass';
+    hp.frequency.value = 2600;
+    bp.type = 'bandpass';
+    bp.frequency.value = 4800 + Math.random() * 1200;
+    bp.Q.value = 1;
+    g.gain.value = .07;                              // about a quarter of the click's loudness
+    src.connect(hp).connect(bp).connect(g).connect(c.destination);
+    src.start(now);
+}

@@ -28,7 +28,7 @@ document.addEventListener('pointerover', e => {
     if (e.target.closest('a,button')) cur.classList.add('big');
     const s = e.target.closest('.skill');
     if (s && !s.contains(e.relatedTarget))
-        keyClick();
+        keyTouch();
 });
 document.addEventListener('pointerout', e => {
     if (e.target.closest('a,button')) cur.classList.remove('big');
