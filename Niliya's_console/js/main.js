@@ -31,3 +31,15 @@ themeBtn.addEventListener('click', () => {
     applyTheme(theme);
     try { localStorage.setItem('theme', theme); } catch (e) { }
 });
+
+// ---------- NS badge: back to top (normal scrolling layout) ----------
+(() => {
+    const brand = document.getElementById('brand');
+    if (!brand) return;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+    const toTop = () => scrollTo({ top: 0, behavior: reduce.matches ? 'auto' : 'smooth' });
+    brand.addEventListener('click', toTop);
+    brand.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toTop(); }
+    });
+})();

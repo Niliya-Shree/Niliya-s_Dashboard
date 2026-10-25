@@ -151,3 +151,25 @@ nav b {
     background: #fff;
     color: #1b1340
 }
+
+/* NS badge: scroll to top */
+nav #brand {
+    cursor: pointer;
+    user-select: none;
+    transition: transform .15s, background .15s
+}
+
+nav #brand:hover {
+    transform: translateY(-2px) rotate(-3deg);
+    background: var(--pink);
+    color: #1b1340
+}
+
+nav #brand:active {
+    transform: translateY(0)
+}
+
+nav #brand:focus-visible {
+    outline: 3px solid var(--sun);
+    outline-offset: 3px
+}
